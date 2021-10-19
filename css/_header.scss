@@ -1,0 +1,35 @@
+header{
+   position: fixed;
+   top: 0;
+   width: 100%;
+   z-index: 100;
+   .container{
+      @include flex(row, space-between, null);
+      padding: 15px 0;
+   }
+   img{
+      width: 160px;
+   }
+   nav{
+      @include flex(row, center, center);
+   }
+   nav ul{
+      @include flex(row, end, center);
+      gap: 20px;
+      a{
+         color: $text-white;
+      }
+   }
+   nav i{
+      text-align: end;
+      display: none !important;
+      font-size: 48px;
+   }
+}
+header.scroll{
+   background-color: $bg-cards;
+   box-shadow: 0 2px 5px #0000004f;
+}
+main{
+   margin-top: 80px;
+}

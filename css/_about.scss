@@ -1,0 +1,78 @@
+section.intro{
+   padding: 80px 0;
+   .container{
+      @include flex(row, space-between, center);
+      .group1{
+         @include flex(column, center, start);
+         gap: 20px;
+         max-width: 350px;
+         h1{
+            font-size: 36px;
+         }
+         .type-animation{
+            display: flex;
+         }
+         p{
+            color: $text-gray;
+         }
+         button{
+            cursor: pointer;
+         }
+         .intro-btns{
+            @include flex(row, start, center);
+            gap: 10px;
+         }
+         .cv-btn{
+            border: none;
+            background-color: $main-color;
+            padding: 15px 30px;
+            border-radius: 5px;
+         }
+         .contact-btn{
+            background-color: $bg-site;
+            border: 1px solid $cards-border;
+            border-radius: 5px;
+            padding: 15px 30px;
+            color: $text-white;
+         }
+      }
+   }
+   img{
+      width: 300px;
+   }
+}
+section.about{
+   padding: 80px 0;
+   text-align: center;
+   p{
+      width: 80%;
+      margin: 15px auto 0;
+      color: $text-gray;
+   }
+}
+section.social{
+   padding: 80px 0;
+   .container{
+      @include flex(row, space-around, center);
+      gap: 20px;
+      flex-wrap: wrap;
+      .social-col{
+         min-width: 150px;
+         @include flex(column, center, center);
+         gap: 10px;
+      }
+      div.icon-img{
+         background-color: $bg-cards;
+         width: 60px;
+         height: 60px;
+         text-align: center;
+         padding: 5px;
+         border-radius: 50%;
+         color: $main-color;
+         @include flex(row, center, center);
+      }
+   }
+   i{
+      font-size: 32px;
+   }
+}

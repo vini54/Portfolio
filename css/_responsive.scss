@@ -1,0 +1,69 @@
+@media screen and (max-width: 1023.9px){
+   section.skills{
+      .cards-container{
+         justify-content: center;
+      }
+   }
+}
+
+@media screen and (max-width: 800px){
+   section.intro{
+      .container{
+         flex-direction: column;
+         gap: 20px;
+      }
+   }
+   section.projetos{
+      .container{
+         width: 90%;
+      }
+      .cards-container{
+         justify-content: center;
+      }
+   }
+}
+@media screen and (max-width: 767.9px){
+   header{
+      &.active{
+         background-color: $bg-cards;
+      }
+      nav ul{
+         flex-direction: column;
+         justify-content: space-around;
+         width: 100%;
+         background-color: $bg-cards;
+         position: absolute;
+         top: 78px;
+         right: 0;
+         visibility: hidden;
+         overflow-y: hidden;
+         height: 0;
+         transition: .5s;
+         &.active{
+            padding: 10px 0;
+            visibility: visible;
+            overflow-y: auto;
+            height: 30vh;
+         }
+      }
+      nav i{
+         display: block !important;
+      }
+   }
+   section.about{
+      p{
+         width: 100%;
+      }
+   }
+}
+@media screen and (max-width: 424.9px){
+   .container{
+      width: 90%;
+   }
+   section.intro{
+      .group1{
+         text-align: center;
+         align-items: center !important;
+      }
+   }
+}

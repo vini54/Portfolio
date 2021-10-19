@@ -1,0 +1,78 @@
+section.projetos{
+   padding: 80px 0;
+   h2{
+      text-align: center;
+      margin-bottom: 20px;
+   }
+   .cards-container{
+      @include flex(row, center, center);
+      flex-wrap: wrap;
+      gap: 40px;
+      .proj-card{
+         width: 300px;
+         padding: 20px;
+         background-color: $bg-cards;
+         border: 1px solid $cards-border;
+         @include flex(column, center, start);
+         gap: 10px;
+         div.card-img{
+            display: flex;
+            justify-content: center;
+         }
+         img{
+            width: 80%;
+         }
+         p{
+            color: $text-gray;
+         }
+      }
+   }
+}
+section.servicos{
+   padding: 80px 0;
+   h2{
+      text-align: center;
+      margin-bottom: 20px;
+   }
+   .cards-container{
+      @include flex(row, center, center);
+      flex-wrap: wrap;
+      gap: 30px;
+      .ser-card{
+         i{
+            font-size: 50px;
+            color: $main-color;
+         }
+         width: 350px;
+         padding: 40px 20px;
+         background-color: $bg-cards;
+         border: 1px solid $cards-border;
+         border-bottom: 5px solid $main-color;
+         border-radius: 2px;
+         color: $text-gray;
+         @include flex(column, center, center);
+         gap: 20px;
+      }
+   }
+}
+section.skills{
+   padding: 80px 0;
+   h2{
+      text-align: center;
+      margin-bottom: 20px;
+   }
+   .cards-container{
+      @include flex(row, space-between, center);
+      flex-wrap: wrap;
+      gap: 15px;
+   }
+   .skill-card{
+      background-color: $bg-cards;
+      border: 1px solid $cards-border;
+      padding: 20px;
+      i{
+         font-size: 80px;
+         color: $main-color;
+      }
+   }
+}
