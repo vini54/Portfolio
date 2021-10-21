@@ -20,3 +20,8 @@ function menuToggle(){
    navLinks.classList.toggle('active')
    header.classList.toggle('active')
 }
+
+// CV
+const cvbtn = document.querySelector('.cv')
+const cvLink = './assets/Vinícius-Santos-de-Oliveira.pdf'
+cvbtn.setAttribute("href", cvLink)
