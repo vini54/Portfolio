@@ -15,4 +15,4 @@ Site: [Github Pages](https://vini54.github.io/Portfolio/)
 - javascript
 
 ## Melhorias
-- Adicionar cv para download
+- Recriar portfólio usando React.js

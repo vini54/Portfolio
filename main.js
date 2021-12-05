@@ -25,3 +25,13 @@ function menuToggle(){
 const cvbtn = document.querySelector('.cv')
 const cvLink = './assets/Vinícius-Santos-de-Oliveira.pdf'
 cvbtn.setAttribute("href", cvLink)
+
+// scroll smooth
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+   anchor.addEventListener('click', function (e) {
+      e.preventDefault();
+      document.querySelector(this.getAttribute('href')).scrollIntoView({
+         behavior: 'smooth'
+      });
+   });
+});

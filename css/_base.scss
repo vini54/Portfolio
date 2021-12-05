@@ -25,6 +25,7 @@ body{
    background-color: $bg-site;
    color: $text-white;
    font-family: $dmSans;
+   scroll-behavior: smooth;
 }
 img{
    width: 100%;

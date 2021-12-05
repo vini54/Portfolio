@@ -11,6 +11,7 @@ body {
   background-color: #171717;
   color: #F9F9F9;
   font-family: "DM Sans", sans-serif;
+  scroll-behavior: smooth;
 }
 
 img {
