@@ -23,7 +23,7 @@ function menuToggle(){
 
 // CV
 const cvbtn = document.querySelector('.cv')
-const cvLink = './assets/Vinícius-Santos-de-Oliveira.pdf'
+const cvLink = './assets/Resume_vinicius.pdf'
 cvbtn.setAttribute("href", cvLink)
 
 // scroll smooth
