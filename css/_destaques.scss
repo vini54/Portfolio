@@ -17,6 +17,7 @@ section.projetos {
       border-radius: 4px;
       gap: 10px;
       align-self: stretch;
+      transition: all 0.15s ease-in;
 
       div.card-img {
         display: flex;
@@ -48,6 +49,20 @@ section.projetos {
 
       .card--links a:hover {
         color: $text-gray1;
+      }
+    }
+
+    .rckt {
+      margin: 0 25%;
+      transition: all 0.35s ease-in;
+      // box-shadow: inset 0px 0px 1px 2px rgba(110, 66, 229, 1);
+
+      &:hover {
+        box-shadow: 0px 2px 16px rgba(110, 66, 229, 0.75);
+      }
+
+      @media screen and (max-width: 720px) {
+        margin: 0;
       }
     }
   }
