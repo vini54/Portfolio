@@ -2,8 +2,10 @@
 
 import Ferrofluid from '@/components/FerroFluid';
 import GlassSurface from '@/components/GlassSurface';
+import { Button } from '@/components/ui/button';
 import Image from 'next/image';
 import React from 'react';
+import { Menu } from '../Components/Menu';
 
 const stacksList = [
   'React',
@@ -39,16 +41,30 @@ export const HeroSection = () => {
         />
       </div>
 
-      <div className='w-full container px-9 py-6 flex justify-between'>
-        <GlassSurface borderRadius={8} height={52} blur={20} width='auto'>
-          <div className='flex items-center gap-3 p-2 justify-start w-full'>
-            <div className='p-1.5'>
-              <Image src={'/logo-icon-white.png'} width={24} height={24} alt='Logo' />
+      <div className='w-full container px-9 py-6'>
+        <GlassSurface borderRadius={8} height={52} blur={20} width='100%'>
+          <div className='w-full flex justify-between items-center'>
+            <div className='flex items-center gap-3 p-2 justify-start w-full'>
+              <div className='p-1.5'>
+                <Image src={'/logo-icon-white.png'} width={24} height={24} alt='Logo' />
+              </div>
+
+              {[
+                { label: 'Sobre', href: '#about' },
+                { label: 'Serviços', href: '#services' },
+                { label: 'Contato', href: '#contact' }
+              ].map((item, ind) => (
+                <Button variant='link' key={`navI-${ind}`} className='text-md'>
+                  {item.label}
+                </Button>
+              ))}
+            </div>
+
+            <div className='px-1.5'>
+              <Menu />
             </div>
           </div>
         </GlassSurface>
-
-        <div></div>
       </div>
 
       <div className='w-full h-[50dvh] flex items-end overflow-hidden'>
