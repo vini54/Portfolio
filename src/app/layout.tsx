@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { DM_Sans, Syne } from 'next/font/google';
 import './globals.css';
 import { cn } from '@/lib/utils';
+import { ThemeProvider } from '@/hooks/use-theme';
 
 const dmSans = DM_Sans({ subsets: ['latin'], variable: '--font-sans' });
 
@@ -19,7 +20,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang='en' className={cn('h-full', 'antialiased', 'font-sans', dmSans.variable, SyneHeading.variable, 'dark')}>
-      <body className='min-h-full flex flex-col'>{children}</body>
+      <body className='min-h-full flex flex-col'>
+        <ThemeProvider>{children}</ThemeProvider>
+      </body>
     </html>
   );
 }
