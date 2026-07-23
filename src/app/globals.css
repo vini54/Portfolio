@@ -146,4 +146,18 @@
   .animate-text-translate {
     animation: text-translate 30s linear infinite alternate;
   }
+
+  @keyframes linear-bounce {
+    0%,
+    100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(25%);
+    }
+  }
+
+  .animate-linear-bounce {
+    animation: linear-bounce 2s linear infinite;
+  }
 }

@@ -98,7 +98,7 @@ export const MenuDrawer = forwardRef<MenuDrawerHandle, MenuDrawerProps>(({ open,
             <a
               key={item}
               href='#'
-              className='font-heading text-4xl font-bold text-foreground sm:text-5xl hover:text-primary-light transition ease-in'
+              className='font-heading text-4xl font-bold text-foreground sm:text-5xl hover:text-primary hover:dark:text-primary-light transition ease-in'
             >
               {item}
             </a>
@@ -136,12 +136,16 @@ export const MenuDrawer = forwardRef<MenuDrawerHandle, MenuDrawerProps>(({ open,
           <a href='mailto:vinioli544@gmail.com' className='flex items-center gap-2 text-sm text-foreground group'>
             <Mail className='size-4' />
 
-            <span className='group-hover:text-primary-light transition ease-in'>vinioli544@gmail.com</span>
+            <span className='group-hover:text-primary group-hover:dark:text-primary-light transition ease-in'>
+              vinioli544@gmail.com
+            </span>
           </a>
 
           <span className='flex items-center gap-2 text-sm text-foreground group'>
             <MessageCircle className='size-4' />
-            <span className='group-hover:text-primary-light transition ease-in'>(84) 99659-1760</span>
+            <span className='group-hover:text-primary group-hover:dark:text-primary-light transition ease-in'>
+              (84) 99659-1760
+            </span>
           </span>
         </section>
 
@@ -149,7 +153,11 @@ export const MenuDrawer = forwardRef<MenuDrawerHandle, MenuDrawerProps>(({ open,
           <span className='text-xs text-muted-foreground'>Social</span>
           <div className='grid grid-cols-2 gap-2 text-sm text-foreground'>
             {socialLinks.map(({ name, href }, ind) => (
-              <a key={`${name}-${ind}`} href={href} className='hover:text-primary-light transition ease-in'>
+              <a
+                key={`${name}-${ind}`}
+                href={href}
+                className='hover:text-primary hover:dark:text-primary-light transition ease-in'
+              >
                 {name}
               </a>
             ))}
