@@ -1,13 +1,12 @@
 'use client';
 
 import Ferrofluid from '@/components/FerroFluid';
-import { Header } from '../../Components/Header';
 import { HeroDisplay } from './Display';
 import { HeroStacks } from './Stacks';
 
 export const HeroSection = () => {
   return (
-    <div className='w-full h-screen flex flex-col items-center justify-between'>
+    <div className='w-full h-screen flex flex-col items-center justify-between' id='initial'>
       {/* <div className='w-full h-screen absolute top-0 left-0 opacity-50'>
         <Ferrofluid
           colors={['#BE3455']}
@@ -26,8 +25,6 @@ export const HeroSection = () => {
           mouseRadius={0.25}
         />
       </div> */}
-
-      <Header />
 
       <HeroDisplay />
 

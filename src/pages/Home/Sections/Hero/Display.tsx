@@ -2,7 +2,7 @@ import { ChevronDown } from 'lucide-react';
 
 export const HeroDisplay = () => {
   return (
-    <div className='relative z-10 flex flex-col items-center gap-6 px-6 text-center container'>
+    <div className='relative z-10 flex flex-col items-center gap-6 px-6 text-center container flex-1 justify-center'>
       <h1 className='font-heading text-4xl sm:text-5xl lg:text-7xl xl:text-8xl font-extrabold bg-linear-to-r from-primary dark:from-primary-light to-black dark:to-white bg-clip-text text-transparent'>
         Vinícius Oliveira
       </h1>
