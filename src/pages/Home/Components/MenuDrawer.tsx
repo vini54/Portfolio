@@ -8,10 +8,10 @@ import { useGSAP } from '@gsap/react';
 import { Button } from '@/components/ui/button';
 import { ThemeSwitch } from './ThemeSwitch';
 import { LanguageSwitch } from './LanguageSwitch';
+import { navItems } from './nav-items';
+import { scrollToSection } from '@/lib/scroll-to-section';
 
 gsap.registerPlugin(useGSAP);
-
-const navItems = ['Sobre', 'Serviços', 'Contato'];
 
 const socialLinks = [
   { name: 'Linkedin', href: '#' },
@@ -96,11 +96,16 @@ export const MenuDrawer = forwardRef<MenuDrawerHandle, MenuDrawerProps>(({ open,
         <nav data-stagger-item className='flex flex-col gap-4 sm:gap-6'>
           {navItems.map((item) => (
             <a
-              key={item}
-              href='#'
+              key={item.label}
+              href={item.href}
+              onClick={(e) => {
+                e.preventDefault();
+                scrollToSection(item.href);
+                closeRef.current();
+              }}
               className='font-heading text-4xl font-bold text-foreground sm:text-5xl hover:text-primary hover:dark:text-primary-light transition ease-in'
             >
-              {item}
+              {item.label}
             </a>
           ))}
         </nav>

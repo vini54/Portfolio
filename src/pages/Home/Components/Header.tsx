@@ -4,18 +4,14 @@ import GlassSurface from '@/components/GlassSurface';
 import { Button } from '@/components/ui/button';
 import Image from 'next/image';
 import { Menu } from './Menu';
-import { useEffect, useRef } from 'react';
+import { useRef } from 'react';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
+import { navItems } from './nav-items';
+import { scrollToSection } from '@/lib/scroll-to-section';
 
 gsap.registerPlugin(ScrollTrigger, useGSAP);
-
-const navItems = [
-  { label: 'Sobre', href: '#about' },
-  { label: 'Serviços', href: '#services' },
-  { label: 'Contato', href: '#contact' }
-];
 
 export const Header = () => {
   const headerRef = useRef<HTMLDivElement>(null);
@@ -43,7 +39,7 @@ export const Header = () => {
   );
 
   return (
-    <div className='w-full fixed top-0 left-0 flex items-center justify-center z-30' ref={headerRef}>
+    <header className='w-full fixed top-0 left-0 flex items-center justify-center z-30' ref={headerRef}>
       <div className='w-full container px-4 py-4 sm:px-6 sm:py-5 md:px-9 md:py-6'>
         <GlassSurface borderRadius={8} height={52} blur={20} width='100%'>
           <div className='w-full flex justify-between items-center'>
@@ -55,7 +51,12 @@ export const Header = () => {
               </div>
 
               {navItems.map((item, ind) => (
-                <Button variant='link' key={`navI-${ind}`} className='text-xs sm:text-sm md:text-base'>
+                <Button
+                  variant='link'
+                  key={`navI-${ind}`}
+                  className='text-xs sm:text-sm md:text-base'
+                  onClick={() => scrollToSection(item.href)}
+                >
                   {item.label}
                 </Button>
               ))}
@@ -67,6 +68,6 @@ export const Header = () => {
           </div>
         </GlassSurface>
       </div>
-    </div>
+    </header>
   );
 };
