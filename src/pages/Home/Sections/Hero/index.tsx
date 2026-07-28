@@ -6,8 +6,8 @@ import { HeroStacks } from './Stacks';
 
 export const HeroSection = () => {
   return (
-    <div className='w-full h-screen flex flex-col items-center justify-between' id='initial'>
-      {/* <div className='w-full h-screen absolute top-0 left-0 opacity-50'>
+    <div className='w-full h-screen flex flex-col items-center justify-between relative' id='initial'>
+      <div className='w-full h-screen absolute top-0 left-0 opacity-50 z-2'>
         <Ferrofluid
           colors={['#BE3455']}
           speed={0.5}
@@ -24,7 +24,7 @@ export const HeroSection = () => {
           mouseStrength={1.5}
           mouseRadius={0.25}
         />
-      </div> */}
+      </div>
 
       <HeroDisplay />
 

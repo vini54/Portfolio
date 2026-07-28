@@ -17,7 +17,7 @@ const stacksList = [
 
 export const HeroStacks = () => {
   return (
-    <div className='w-full h-[25dvh] flex items-end overflow-x-hidden'>
+    <div className='w-full h-full flex items-end overflow-x-hidden mt-auto'>
       <div className='w-full font-heading mb-6 -rotate-3 -translate-y-20 -translate-x-2 scale-x-105'>
         <GlassSurface borderRadius={0} height={72} blur={20} width='100%' className='w-full'>
           <div className='w-full px-6 py-4 flex items-center gap-4 text-2xl font-bold pl-12 animate-text-translate hover:paused'>

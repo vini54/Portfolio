@@ -10,14 +10,9 @@ import { ThemeSwitch } from './ThemeSwitch';
 import { LanguageSwitch } from './LanguageSwitch';
 import { navItems } from './nav-items';
 import { scrollToSection } from '@/lib/scroll-to-section';
+import { socialLinks } from '../Sections';
 
 gsap.registerPlugin(useGSAP);
-
-const socialLinks = [
-  { name: 'Linkedin', href: '#' },
-  { name: 'Instagram', href: '#' },
-  { name: 'GitHub', href: '#' }
-];
 
 export interface MenuDrawerHandle {
   close: () => void;
@@ -157,13 +152,15 @@ export const MenuDrawer = forwardRef<MenuDrawerHandle, MenuDrawerProps>(({ open,
         <section data-stagger-item className='mt-6 flex flex-col gap-2'>
           <span className='text-xs text-muted-foreground'>Social</span>
           <div className='grid grid-cols-2 gap-2 text-sm text-foreground'>
-            {socialLinks.map(({ name, href }, ind) => (
+            {socialLinks.map((item, ind) => (
               <a
-                key={`${name}-${ind}`}
-                href={href}
+                key={`${item.label}-${ind}`}
+                href={item.href}
+                target='_blank'
+                rel='noopener noreferrer'
                 className='hover:text-primary hover:dark:text-primary-light transition ease-in'
               >
-                {name}
+                {item.label}
               </a>
             ))}
           </div>
