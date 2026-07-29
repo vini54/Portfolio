@@ -14,3 +14,11 @@ export const scrollToSection = (target: string) => {
     ease: 'power2.inOut'
   });
 };
+
+export const scrollToTop = () => {
+  gsap.to(window, {
+    duration: 1,
+    scrollTo: { y: 0 },
+    ease: 'power2.inOut'
+  });
+};

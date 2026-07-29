@@ -80,7 +80,7 @@ void main() {
 `;
 
 const fragment = `
-precision highp float;
+precision mediump float;
 
 uniform vec3  iResolution;
 uniform vec2  iMouse;
@@ -246,58 +246,84 @@ const Ferrofluid: React.FC<FerrofluidProps> = ({
     const container = containerRef.current;
     if (!container) return;
 
-    const renderer = new Renderer({
-      dpr: dpr ?? (typeof window !== 'undefined' ? window.devicePixelRatio || 1 : 1),
-      alpha: true,
-      antialias: true
-    });
-    rendererRef.current = renderer;
-    const gl = renderer.gl;
-    const canvas = gl.canvas as HTMLCanvasElement;
-    gl.clearColor(0, 0, 0, 0);
-    canvas.style.width = '100%';
-    canvas.style.height = '100%';
-    canvas.style.display = 'block';
-    container.appendChild(canvas);
+    // Detecta se é dispositivo móvel ou tela pequena
+    const isMobile =
+      typeof window !== 'undefined' && (window.innerWidth < 768 || /Mobi|Android/i.test(navigator.userAgent));
 
-    const { arr, count, avg } = prepColors(colors);
+    // Força um DPR menor no mobile para não esmagar os cálculos e melhorar a performance
+    const effectiveDpr = Math.min(
+      dpr ?? (typeof window !== 'undefined' ? window.devicePixelRatio || 1 : 1),
+      isMobile ? 1.2 : 2
+    );
 
-    const uniforms = {
-      iResolution: { value: [gl.drawingBufferWidth, gl.drawingBufferHeight, 1] },
-      iMouse: { value: [0, 0] },
-      iTime: { value: 0 },
-      uColor0: { value: arr[0] },
-      uColor1: { value: arr[1] },
-      uColor2: { value: arr[2] },
-      uColor3: { value: arr[3] },
-      uColor4: { value: arr[4] },
-      uColor5: { value: arr[5] },
-      uColor6: { value: arr[6] },
-      uColor7: { value: arr[7] },
-      uColorCount: { value: count },
-      uMouseColor: { value: avg },
-      uFlow: { value: flowVec(flowDirection) },
-      uSpeed: { value: speed },
-      uScale: { value: scale },
-      uTurbulence: { value: turbulence },
-      uFluidity: { value: fluidity },
-      uRimWidth: { value: rimWidth },
-      uSharpness: { value: sharpness },
-      uShimmer: { value: shimmer },
-      uGlow: { value: glow },
-      uOpacity: { value: opacity },
-      uMouseEnabled: { value: mouseInteraction ? 1 : 0 },
-      uMouseStrength: { value: mouseStrength },
-      uMouseRadius: { value: mouseRadius }
-    };
+    let renderer: Renderer;
+    let gl: Renderer['gl'];
+    let canvas: HTMLCanvasElement;
+    let uniforms: Record<string, { value: unknown }>;
 
-    const program = new Program(gl, { vertex, fragment, uniforms });
-    programRef.current = program;
+    try {
+      renderer = new Renderer({
+        dpr: effectiveDpr,
+        alpha: true,
+        antialias: true
+      });
+      rendererRef.current = renderer;
+      gl = renderer.gl;
+      canvas = gl.canvas as HTMLCanvasElement;
+      gl.clearColor(0, 0, 0, 0);
+      canvas.style.width = '100%';
+      canvas.style.height = '100%';
+      canvas.style.display = 'block';
+      container.appendChild(canvas);
 
-    const geometry = new Triangle(gl);
-    geometryRef.current = geometry;
-    const mesh = new Mesh(gl, { geometry, program });
-    meshRef.current = mesh;
+      const { arr, count, avg } = prepColors(colors);
+
+      // Ajustes dinâmicos automáticos para telas Mobile
+      const finalScale = isMobile ? scale * 2.2 : scale; // Aumenta o tamanho do padrão matemático no mobile
+      const finalSharpness = isMobile ? sharpness * 0.7 : sharpness; // Suaviza as bordas para não sumirem em telas densas
+      const finalGlow = isMobile ? glow * 1.4 : glow; // Compensa a perda de brilho injetando mais intensidade
+      const finalShimmer = isMobile ? shimmer * 1.3 : shimmer; // Garante que os reflexos continuem visíveis
+
+      uniforms = {
+        iResolution: { value: [gl.drawingBufferWidth, gl.drawingBufferHeight, 1] },
+        iMouse: { value: [0, 0] },
+        iTime: { value: 0 },
+        uColor0: { value: arr[0] },
+        uColor1: { value: arr[1] },
+        uColor2: { value: arr[2] },
+        uColor3: { value: arr[3] },
+        uColor4: { value: arr[4] },
+        uColor5: { value: arr[5] },
+        uColor6: { value: arr[6] },
+        uColor7: { value: arr[7] },
+        uColorCount: { value: count },
+        uMouseColor: { value: avg },
+        uFlow: { value: flowVec(flowDirection) },
+        uSpeed: { value: speed },
+        uScale: { value: finalScale },
+        uTurbulence: { value: turbulence },
+        uFluidity: { value: fluidity },
+        uRimWidth: { value: rimWidth },
+        uSharpness: { value: finalSharpness },
+        uShimmer: { value: finalShimmer },
+        uGlow: { value: finalGlow },
+        uOpacity: { value: opacity },
+        uMouseEnabled: { value: mouseInteraction ? 1 : 0 },
+        uMouseStrength: { value: mouseStrength },
+        uMouseRadius: { value: mouseRadius }
+      };
+
+      const program = new Program(gl, { vertex, fragment, uniforms });
+      programRef.current = program;
+
+      const geometry = new Triangle(gl);
+      geometryRef.current = geometry;
+      const mesh = new Mesh(gl, { geometry, program });
+      meshRef.current = mesh;
+    } catch (e) {
+      console.error('Ferrofluid: failed to initialize WebGL renderer', e);
+      return;
+    }
 
     const resize = () => {
       const rect = container.getBoundingClientRect();
@@ -397,6 +423,8 @@ const Ferrofluid: React.FC<FerrofluidProps> = ({
       ref={containerRef}
       className={`w-full h-full overflow-hidden relative ${className ?? ''}`}
       style={{
+        transform: 'translateZ(0)', // Força aceleração de hardware nativa no mobile
+        touchAction: 'none', // Evita conflitos de scroll ao interagir com o shader
         ...(mixBlendMode && { mixBlendMode: mixBlendMode as React.CSSProperties['mixBlendMode'] })
       }}
     />

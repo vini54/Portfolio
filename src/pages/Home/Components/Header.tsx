@@ -9,7 +9,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
 import { navItems } from './nav-items';
-import { scrollToSection } from '@/lib/scroll-to-section';
+import { scrollToSection, scrollToTop } from '@/lib/scroll-to-section';
 
 gsap.registerPlugin(ScrollTrigger, useGSAP);
 
@@ -44,11 +44,11 @@ export const Header = () => {
         <GlassSurface borderRadius={8} height={52} blur={20} width='100%'>
           <div className='w-full flex justify-between items-center'>
             <div className='flex items-center gap-2 sm:gap-3 p-2 justify-start w-full'>
-              <div className='p-1.5'>
+              <button onClick={scrollToTop} aria-label='Voltar ao topo' className='p-1.5 cursor-pointer'>
                 <Image src={'/logo-icon-white.png'} width={24} height={24} alt='Logo' className='not-dark:hidden' />
 
                 <Image src={'/logo-icon-black.png'} width={24} height={24} alt='Logo' className='dark:hidden' />
-              </div>
+              </button>
 
               {navItems.map((item, ind) => (
                 <Button

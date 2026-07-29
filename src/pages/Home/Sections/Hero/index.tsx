@@ -7,7 +7,7 @@ import { HeroStacks } from './Stacks';
 export const HeroSection = () => {
   return (
     <div className='w-full h-screen flex flex-col items-center justify-between relative' id='initial'>
-      <div className='w-full h-screen absolute top-0 left-0 opacity-50 z-2'>
+      <div className='w-full h-dvh absolute top-0 left-0 opacity-50 z-2'>
         <Ferrofluid
           colors={['#BE3455']}
           speed={0.5}
