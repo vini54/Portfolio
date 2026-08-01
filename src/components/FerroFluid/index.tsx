@@ -80,7 +80,7 @@ void main() {
 `;
 
 const fragment = `
-precision mediump float;
+__PRECISION__
 
 uniform vec3  iResolution;
 uniform vec2  iMouse;
@@ -246,15 +246,7 @@ const Ferrofluid: React.FC<FerrofluidProps> = ({
     const container = containerRef.current;
     if (!container) return;
 
-    // Detecta se é dispositivo móvel ou tela pequena
-    const isMobile =
-      typeof window !== 'undefined' && (window.innerWidth < 768 || /Mobi|Android/i.test(navigator.userAgent));
-
-    // Força um DPR menor no mobile para não esmagar os cálculos e melhorar a performance
-    const effectiveDpr = Math.min(
-      dpr ?? (typeof window !== 'undefined' ? window.devicePixelRatio || 1 : 1),
-      isMobile ? 1.2 : 2
-    );
+    const effectiveDpr = Math.min(dpr ?? (typeof window !== 'undefined' ? window.devicePixelRatio || 1 : 1), 2);
 
     let renderer: Renderer;
     let gl: Renderer['gl'];
@@ -274,15 +266,11 @@ const Ferrofluid: React.FC<FerrofluidProps> = ({
       canvas.style.width = '100%';
       canvas.style.height = '100%';
       canvas.style.display = 'block';
+
+      canvas.style.touchAction = 'pan-y';
       container.appendChild(canvas);
 
       const { arr, count, avg } = prepColors(colors);
-
-      // Ajustes dinâmicos automáticos para telas Mobile
-      const finalScale = isMobile ? scale * 2.2 : scale; // Aumenta o tamanho do padrão matemático no mobile
-      const finalSharpness = isMobile ? sharpness * 0.7 : sharpness; // Suaviza as bordas para não sumirem em telas densas
-      const finalGlow = isMobile ? glow * 1.4 : glow; // Compensa a perda de brilho injetando mais intensidade
-      const finalShimmer = isMobile ? shimmer * 1.3 : shimmer; // Garante que os reflexos continuem visíveis
 
       uniforms = {
         iResolution: { value: [gl.drawingBufferWidth, gl.drawingBufferHeight, 1] },
@@ -300,20 +288,25 @@ const Ferrofluid: React.FC<FerrofluidProps> = ({
         uMouseColor: { value: avg },
         uFlow: { value: flowVec(flowDirection) },
         uSpeed: { value: speed },
-        uScale: { value: finalScale },
+        uScale: { value: scale },
         uTurbulence: { value: turbulence },
         uFluidity: { value: fluidity },
         uRimWidth: { value: rimWidth },
-        uSharpness: { value: finalSharpness },
-        uShimmer: { value: finalShimmer },
-        uGlow: { value: finalGlow },
+        uSharpness: { value: sharpness },
+        uShimmer: { value: shimmer },
+        uGlow: { value: glow },
         uOpacity: { value: opacity },
         uMouseEnabled: { value: mouseInteraction ? 1 : 0 },
         uMouseStrength: { value: mouseStrength },
         uMouseRadius: { value: mouseRadius }
       };
 
-      const program = new Program(gl, { vertex, fragment, uniforms });
+      const highpSupport = gl.getShaderPrecisionFormat?.(gl.FRAGMENT_SHADER, gl.HIGH_FLOAT);
+      const precisionDirective =
+        highpSupport && highpSupport.precision > 0 ? 'precision highp float;' : 'precision mediump float;';
+      const fragmentSource = fragment.replace('__PRECISION__', precisionDirective);
+
+      const program = new Program(gl, { vertex, fragment: fragmentSource, uniforms });
       programRef.current = program;
 
       const geometry = new Triangle(gl);
@@ -346,7 +339,7 @@ const Ferrofluid: React.FC<FerrofluidProps> = ({
       }
     };
     if (mouseInteraction) {
-      canvas.addEventListener('pointermove', onPointerMove);
+      canvas.addEventListener('pointermove', onPointerMove, { passive: true });
     }
 
     const loop = (t: number) => {
@@ -423,8 +416,8 @@ const Ferrofluid: React.FC<FerrofluidProps> = ({
       ref={containerRef}
       className={`w-full h-full overflow-hidden relative ${className ?? ''}`}
       style={{
-        transform: 'translateZ(0)', // Força aceleração de hardware nativa no mobile
-        touchAction: 'none', // Evita conflitos de scroll ao interagir com o shader
+        transform: 'translateZ(0)',
+        touchAction: 'none',
         ...(mixBlendMode && { mixBlendMode: mixBlendMode as React.CSSProperties['mixBlendMode'] })
       }}
     />
