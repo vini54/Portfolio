@@ -45,9 +45,26 @@ export const Header = () => {
           <div className='w-full flex justify-between items-center'>
             <div className='flex items-center gap-2 sm:gap-3 p-2 justify-start w-full'>
               <button onClick={scrollToTop} aria-label='Voltar ao topo' className='p-1.5 cursor-pointer'>
-                <Image src={'/logo-icon-white.png'} width={24} height={24} alt='Logo' className='not-dark:hidden' />
+                {/* As duas versões ficam empilhadas e alternam por opacidade —
+                    `hidden`/`block` não é animável na troca de tema. */}
+                <span className='relative block size-6'>
+                  <Image
+                    src={'/logo-icon-white.png'}
+                    width={24}
+                    height={24}
+                    alt='Logo'
+                    className='absolute inset-0 size-6 opacity-0 dark:opacity-100 transition-opacity duration-300 ease-in-out'
+                  />
 
-                <Image src={'/logo-icon-black.png'} width={24} height={24} alt='Logo' className='dark:hidden' />
+                  <Image
+                    src={'/logo-icon-black.png'}
+                    width={24}
+                    height={24}
+                    alt=''
+                    aria-hidden='true'
+                    className='absolute inset-0 size-6 opacity-100 dark:opacity-0 transition-opacity duration-300 ease-in-out'
+                  />
+                </span>
               </button>
 
               {navItems.map((item, ind) => (

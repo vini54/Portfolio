@@ -75,6 +75,8 @@
   --chart-4: #a02c47;
   --chart-5: #782135;
   --radius: 0.45rem;
+  --theme-transition-duration: 320ms;
+  --theme-transition-ease: cubic-bezier(0.4, 0, 0.2, 1);
   --sidebar: oklch(0.987 0.002 197.1);
   --sidebar-foreground: oklch(0.148 0.004 228.8);
   --sidebar-primary: #be3455;
@@ -159,5 +161,40 @@
 
   .animate-linear-bounce {
     animation: linear-bounce 2s linear infinite;
+  }
+}
+
+/* --- Transição de tema -----------------------------------------------------
+   `.theme-transition` é aplicada ao <html> pelo ThemeProvider apenas durante a
+   troca de tema (ver src/hooks/use-theme.tsx) e removida logo depois.
+
+   Este bloco fica DE PROPÓSITO fora de qualquer @layer: estilos sem layer
+   vencem os de `@layer utilities`, então durante a troca ele sobrepõe as
+   classes `transition`/`transition-colors` dos componentes (que são de 150ms e
+   não cobrem as paradas de gradiente). Como a classe some depois, os hovers
+   voltam ao comportamento normal.
+
+   `--tw-gradient-*` são registradas pelo Tailwind v4 via @property com
+   syntax `<color>`, por isso os títulos com `bg-clip-text` também interpolam
+   em vez de saltar. `opacity` e `transform` ficam fora da lista para não
+   brigar com as animações GSAP (header, drawer). */
+.theme-transition,
+.theme-transition *,
+.theme-transition *::before,
+.theme-transition *::after {
+  transition-property:
+    color, background-color, border-color, outline-color, text-decoration-color, fill, stroke,
+    box-shadow, --tw-gradient-from, --tw-gradient-via, --tw-gradient-to;
+  transition-duration: var(--theme-transition-duration);
+  transition-timing-function: var(--theme-transition-ease);
+  transition-delay: 0s;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .theme-transition,
+  .theme-transition *,
+  .theme-transition *::before,
+  .theme-transition *::after {
+    transition-duration: 0s;
   }
 }

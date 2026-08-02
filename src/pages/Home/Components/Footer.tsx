@@ -15,14 +15,16 @@ export const Footer = () => {
           Fortaleza - CE, Brasil
         </span>
 
-        <div className='flex justify-end max-sm:col-span-2 max-lg:col-span-3 max-lg:-mb-2'>
+        {/* As duas artes ficam empilhadas na mesma célula do grid e alternam por
+            opacidade — `hidden`/`block` não é animável na troca de tema. */}
+        <div className='grid justify-end justify-items-end max-sm:col-span-2 max-lg:col-span-3 max-lg:-mb-2'>
           <Image
             src='/logo-icon-bg-dark.png'
             width={200}
             height={200}
             alt=''
             aria-hidden='true'
-            className='dark:block not-dark:hidden lg:scale-150 h-12 md:h-14 w-auto opacity-90 pointer-events-none'
+            className='col-start-1 row-start-1 lg:scale-150 h-12 md:h-14 w-auto opacity-0 dark:opacity-90 transition-opacity duration-300 ease-in-out pointer-events-none'
           />
 
           <Image
@@ -31,7 +33,7 @@ export const Footer = () => {
             height={200}
             alt=''
             aria-hidden='true'
-            className='not-dark:block dark:hidden lg:scale-150 h-12 md:h-14 w-auto opacity-90 pointer-events-none'
+            className='col-start-1 row-start-1 lg:scale-150 h-12 md:h-14 w-auto opacity-90 dark:opacity-0 transition-opacity duration-300 ease-in-out pointer-events-none'
           />
         </div>
       </div>
