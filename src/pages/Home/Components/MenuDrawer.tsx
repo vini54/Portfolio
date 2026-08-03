@@ -11,6 +11,7 @@ import { LanguageSwitch } from './LanguageSwitch';
 import { navItems } from './nav-items';
 import { scrollToSection } from '@/lib/scroll-to-section';
 import { socialLinks } from '../Sections';
+import { useTranslation } from 'react-i18next';
 
 gsap.registerPlugin(useGSAP);
 
@@ -27,6 +28,7 @@ export const MenuDrawer = forwardRef<MenuDrawerHandle, MenuDrawerProps>(({ open,
   const panelRef = useRef<HTMLDivElement>(null);
   const backdropRef = useRef<HTMLDivElement>(null);
   const closeRef = useRef<() => void>(() => {});
+  const { t } = useTranslation();
 
   useGSAP(
     (_context, contextSafe) => {
@@ -83,7 +85,7 @@ export const MenuDrawer = forwardRef<MenuDrawerHandle, MenuDrawerProps>(({ open,
         <button
           onClick={() => closeRef.current()}
           className='self-end rounded-full p-2 text-foreground transition-colors hover:bg-muted'
-          aria-label='Fechar menu'
+          aria-label={t('home.menuDrawer.close')}
         >
           <X className='size-5' />
         </button>
@@ -91,7 +93,7 @@ export const MenuDrawer = forwardRef<MenuDrawerHandle, MenuDrawerProps>(({ open,
         <nav data-stagger-item className='flex flex-col gap-4 sm:gap-6'>
           {navItems.map((item) => (
             <a
-              key={item.label}
+              key={item.href}
               href={item.href}
               onClick={(e) => {
                 e.preventDefault();
@@ -100,7 +102,7 @@ export const MenuDrawer = forwardRef<MenuDrawerHandle, MenuDrawerProps>(({ open,
               }}
               className='font-heading text-4xl font-bold text-foreground sm:text-5xl hover:text-primary hover:dark:text-primary-light transition ease-in'
             >
-              {item.label}
+              {t(item.labelKey)}
             </a>
           ))}
         </nav>
@@ -117,13 +119,13 @@ export const MenuDrawer = forwardRef<MenuDrawerHandle, MenuDrawerProps>(({ open,
           </section>
 
           <section data-stagger-item className='flex flex-col gap-2'>
-            <span className='text-xs text-muted-foreground'>Currículo</span>
+            <span className='text-xs text-muted-foreground'>{t('home.menuDrawer.resume')}</span>
             <Button variant='default' className='w-fit'>
               <Download className='size-4' />
-              Baixar CV
+              {t('home.common.downloadCv')}
             </Button>
             <a href='#' className='text-sm text-muted-foreground hover:text-foreground'>
-              Download Cv (en)
+              {t('home.menuDrawer.downloadCvAlt')}
             </a>
           </section>
         </div>
@@ -131,7 +133,7 @@ export const MenuDrawer = forwardRef<MenuDrawerHandle, MenuDrawerProps>(({ open,
         <div className='flex-1' />
 
         <section data-stagger-item className='flex flex-col items-start gap-2'>
-          <span className='text-xs text-muted-foreground'>Contate-me</span>
+          <span className='text-xs text-muted-foreground'>{t('home.menuDrawer.contactMe')}</span>
 
           <a href='mailto:vinioli544@gmail.com' className='flex items-center gap-2 text-sm text-foreground group'>
             <Mail className='size-4' />
@@ -150,7 +152,7 @@ export const MenuDrawer = forwardRef<MenuDrawerHandle, MenuDrawerProps>(({ open,
         </section>
 
         <section data-stagger-item className='mt-6 flex flex-col gap-2'>
-          <span className='text-xs text-muted-foreground'>Social</span>
+          <span className='text-xs text-muted-foreground'>{t('home.common.social')}</span>
           <div className='grid grid-cols-2 gap-2 text-sm text-foreground'>
             {socialLinks.map((item, ind) => (
               <a

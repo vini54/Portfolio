@@ -1,12 +1,17 @@
+'use client';
+
 import GlassSurface from '@/components/GlassSurface';
+import { useTranslation } from 'react-i18next';
 
 const stats = [
-  { value: '4+', label: `Anos de\nExperiência` },
-  { value: '10+', label: `Empresas\nAtendidas` },
-  { value: '25+', label: `Projetos\nEntregues` }
+  { id: 'years', value: '4+', labelKey: 'home.about.stats.years' },
+  { id: 'companies', value: '10+', labelKey: 'home.about.stats.companies' },
+  { id: 'projects', value: '25+', labelKey: 'home.about.stats.projects' }
 ];
 
 export const AboutSection = () => {
+  const { t } = useTranslation();
+
   return (
     <div className='w-full min-h-screen flex flex-col items-center justify-center relative' id='about'>
       <div
@@ -23,26 +28,18 @@ export const AboutSection = () => {
         <GlassSurface borderRadius={24} height='auto' blur={50} displace={1} width='100%'>
           <div className='w-full p-4 md:p-8 lg:p-12 flex flex-col gap-8 text-left'>
             <h2 className='font-heading text-3xl md:text-5xl lg:text-6xl font-extrabold bg-linear-to-r from-gray-800 dark:from-primary-light to-primary dark:to-primary bg-clip-text text-transparent w-fit'>
-              Sobre-
+              {t('home.about.title')}
             </h2>
 
             <div className='flex flex-col gap-2'>
-              <p className='text-sm sm:text-base text-muted-foreground'>
-                Desenvolvedor Front-End com 4+ anos de experiência e foco em Frontend Engineering. Atuo no
-                desenvolvimento de interfaces web com React e Next.js e aplicações mobile com React Native e Flutter,
-                com TypeScript como base em ambas as plataformas.
-              </p>
-              <p className='text-sm sm:text-base text-muted-foreground'>
-                Tenho experiência na criação de design systems do zero, componentização escalável e integração direta
-                entre desenvolvimento e design. Acredito que decisões de interface são tão técnicas quanto decisões de
-                arquitetura — e é com essa mentalidade que entrego.
-              </p>
+              <p className='text-sm sm:text-base text-muted-foreground'>{t('home.about.paragraph1')}</p>
+              <p className='text-sm sm:text-base text-muted-foreground'>{t('home.about.paragraph2')}</p>
             </div>
 
             <div className='w-full flex items-center justify-between max-md:justify-start sm:divide-x sm:divide-border mt-2 sm:mt-8'>
               {stats.map((stat) => (
                 <div
-                  key={stat.label}
+                  key={stat.id}
                   className='flex-1 px-2 md:px-8 first:pl-0 flex flex-col items-center gap-2 sm:gap-4 md:gap-8 py-4 md:py-6'
                 >
                   <span className='font-heading font-extrabold text-2xl sm:text-4xl md:text-5xl lg:text-7xl bg-linear-to-r from-gray-800 dark:from-primary-light to-primary dark:to-primary bg-clip-text text-transparent'>
@@ -50,7 +47,7 @@ export const AboutSection = () => {
                   </span>
 
                   <span className='font-heading text-base sm:text-lg md:text-xl lg:text-3xl text-muted-foreground text-center whitespace-pre'>
-                    {stat.label}
+                    {t(stat.labelKey)}
                   </span>
                 </div>
               ))}

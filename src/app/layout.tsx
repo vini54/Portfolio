@@ -3,6 +3,7 @@ import { DM_Sans, Syne } from 'next/font/google';
 import './globals.css';
 import { cn } from '@/lib/utils';
 import { ThemeProvider } from '@/hooks/use-theme';
+import { LanguageProvider } from '@/hooks/use-language';
 
 const dmSans = DM_Sans({ subsets: ['latin'], variable: '--font-sans' });
 
@@ -19,9 +20,16 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang='en' className={cn('h-full', 'antialiased', 'font-sans', dmSans.variable, SyneHeading.variable, 'dark')}>
+    // `lang` e `dark` são o estado inicial do SSR; ambos os providers ajustam
+    // o atributo/classe no mount se o usuário tiver outra preferência salva.
+    <html
+      lang='pt-BR'
+      className={cn('h-full', 'antialiased', 'font-sans', dmSans.variable, SyneHeading.variable, 'dark')}
+    >
       <body className='min-h-full flex flex-col'>
-        <ThemeProvider>{children}</ThemeProvider>
+        <LanguageProvider>
+          <ThemeProvider>{children}</ThemeProvider>
+        </LanguageProvider>
       </body>
     </html>
   );

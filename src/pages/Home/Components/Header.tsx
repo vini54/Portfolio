@@ -10,11 +10,13 @@ import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
 import { navItems } from './nav-items';
 import { scrollToSection, scrollToTop } from '@/lib/scroll-to-section';
+import { useTranslation } from 'react-i18next';
 
 gsap.registerPlugin(ScrollTrigger, useGSAP);
 
 export const Header = () => {
   const headerRef = useRef<HTMLDivElement>(null);
+  const { t } = useTranslation();
 
   useGSAP(
     () => {
@@ -44,7 +46,7 @@ export const Header = () => {
         <GlassSurface borderRadius={8} height={52} blur={20} width='100%'>
           <div className='w-full flex justify-between items-center'>
             <div className='flex items-center gap-2 sm:gap-3 p-2 justify-start w-full'>
-              <button onClick={scrollToTop} aria-label='Voltar ao topo' className='p-1.5 cursor-pointer'>
+              <button onClick={scrollToTop} aria-label={t('home.header.backToTop')} className='p-1.5 cursor-pointer'>
                 {/* As duas versões ficam empilhadas e alternam por opacidade —
                     `hidden`/`block` não é animável na troca de tema. */}
                 <span className='relative block size-6'>
@@ -52,7 +54,7 @@ export const Header = () => {
                     src={'/logo-icon-white.png'}
                     width={24}
                     height={24}
-                    alt='Logo'
+                    alt={t('home.header.logoAlt')}
                     className='absolute inset-0 size-6 opacity-0 dark:opacity-100 transition-opacity duration-300 ease-in-out'
                   />
 
@@ -67,14 +69,14 @@ export const Header = () => {
                 </span>
               </button>
 
-              {navItems.map((item, ind) => (
+              {navItems.map((item) => (
                 <Button
                   variant='link'
-                  key={`navI-${ind}`}
+                  key={item.href}
                   className='text-xs sm:text-sm md:text-base'
                   onClick={() => scrollToSection(item.href)}
                 >
-                  {item.label}
+                  {t(item.labelKey)}
                 </Button>
               ))}
             </div>

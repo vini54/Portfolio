@@ -1,18 +1,23 @@
+'use client';
+
 import Image from 'next/image';
+import { useTranslation } from 'react-i18next';
 
 export const Footer = () => {
+  const { t } = useTranslation();
+
   return (
     <footer className='w-full relative overflow-hidden bg-primary'>
       <div className='w-full relative z-10 px-4 sm:px-6 md:px-9 py-2 grid grid-cols-3 items-center gap-4'>
         <div className='flex flex-col gap-1 max-sm:col-span-3 max-lg:col-span-2'>
-          <span className='text-xs text-primary-foreground/70'>Design & Development</span>
+          <span className='text-xs text-primary-foreground/70'>{t('home.footer.tagline')}</span>
           <span className='font-heading font-extrabold text-primary-foreground whitespace-nowrap'>
             Vinícius Santos de Oliveira
           </span>
         </div>
 
         <span className='text-xs text-primary-foreground/80 text-start sm:text-end lg:text-center max-sm:whitespace-nowrap'>
-          Fortaleza - CE, Brasil
+          {t('home.footer.location')}
         </span>
 
         {/* As duas artes ficam empilhadas na mesma célula do grid e alternam por

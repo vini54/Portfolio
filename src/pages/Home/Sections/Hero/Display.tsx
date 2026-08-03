@@ -1,6 +1,11 @@
 import { ChevronDown } from 'lucide-react';
+import { Trans, useTranslation } from 'react-i18next';
 
 export const HeroDisplay = () => {
+  // O <Trans> sozinho lê a tradução mas não assina o evento de troca de idioma —
+  // é o useTranslation daqui que re-renderiza o componente. Daí o `t` explícito.
+  const { t } = useTranslation();
+
   return (
     <div className='absolute w-full h-full flex flex-col items-center gap-6 px-6 text-center container flex-1 justify-center'>
       <h1 className='font-heading text-5xl sm:text-6xl lg:text-7xl xl:text-8xl font-extrabold bg-linear-to-r from-primary dark:from-primary-light to-black dark:to-white bg-clip-text text-transparent z-5'>
@@ -8,9 +13,12 @@ export const HeroDisplay = () => {
       </h1>
 
       <p className='text-sm sm:text-base md:text-lg text-muted-foreground max-w-xl z-5'>
-        <span className='font-semibold text-foreground'>Desenvolvedor</span> front-end especializado em{' '}
-        <span className='font-semibold text-foreground'>Web e Mobile</span> Engineering. Construo interfaces que
-        funcionam com precisão e parecem que foram feitas com cuidado.
+        {/* Os <hl> da string traduzida viram os trechos em negrito. */}
+        <Trans
+          t={t}
+          i18nKey='home.hero.description'
+          components={{ hl: <span className='font-semibold text-foreground' /> }}
+        />
       </p>
 
       <div

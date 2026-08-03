@@ -4,13 +4,15 @@ import { Switch } from '@base-ui/react/switch';
 import { Moon, Sun } from 'lucide-react';
 import { useTheme } from '@/hooks/use-theme';
 import { cn } from '@/lib/utils';
+import { useTranslation } from 'react-i18next';
 
 export const ThemeSwitch = () => {
   const { theme, toggleTheme } = useTheme();
+  const { t } = useTranslation();
 
   return (
     <div className='flex flex-col gap-2 items-start'>
-      <span className='text-xs text-muted-foreground'>Aparência</span>
+      <span className='text-xs text-muted-foreground'>{t('home.themeSwitch.label')}</span>
 
       <Switch.Root
         checked={theme === 'dark'}

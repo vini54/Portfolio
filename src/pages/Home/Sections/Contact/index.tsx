@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { Check, Copy, Download, ExternalLink, Mail, MessageCircle, Phone, Sparkle } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { GithubIcon, InstagramIcon, LinkedinIcon } from '@/components/icons/social-icons';
+import { useTranslation } from 'react-i18next';
 
 export const socialLinks = [
   { label: 'Linkedin', href: 'https://www.linkedin.com/in/lovinidev', icon: LinkedinIcon },
@@ -82,11 +83,13 @@ const ContactCopyRow = ({ value, icon: Icon }: ContactCopyRowProps) => {
 };
 
 export const ContactSection = () => {
+  const { t } = useTranslation();
+
   return (
     <div className='w-full min-h-screen flex flex-col justify-center items-center' id='contact'>
       <div className='w-full container px-4 sm:px-6 md:px-9 py-16 md:py-24'>
         <h2 className='flex items-center gap-3 font-heading text-4xl sm:text-5xl md:text-6xl font-extrabold bg-linear-to-r from-black dark:from-white to-primary dark:to-primary-light bg-clip-text text-transparent'>
-          Contato
+          {t('home.contact.title')}
           <Sparkle className='fill-primary text-primary size-8 md:size-10' />
         </h2>
 
@@ -96,28 +99,27 @@ export const ContactSection = () => {
           <div className='grid grid-cols-1 lg:grid-cols-[1.5fr_1fr_1fr] gap-8 md:gap-12'>
             <div className='flex flex-col gap-8 md:gap-16'>
               <div className='flex flex-col gap-2'>
-                <span className='text-xs text-primary dark:text-primary-light'>Vamos conversar</span>
+                <span className='text-xs text-primary dark:text-primary-light'>{t('home.contact.kicker')}</span>
                 <p className='font-heading font-bold text-base sm:text-xl md:text-2xl text-foreground'>
-                  Disponível para oportunidades remotas como Frontend Engineer, Product Engineer ou React Native
-                  Engineer.
+                  {t('home.contact.headline')}
                 </p>
               </div>
 
               <Button variant='default' className='w-fit'>
                 <Download className='size-4' />
-                Baixar CV
+                {t('home.common.downloadCv')}
               </Button>
             </div>
 
             <div className='flex flex-col gap-2'>
-              <span className='text-xs text-primary dark:text-primary-light'>Social</span>
+              <span className='text-xs text-primary dark:text-primary-light'>{t('home.common.social')}</span>
               {socialLinks.map((social) => (
                 <ContactActionLink key={social.label} label={social.label} href={social.href} icon={social.icon} />
               ))}
             </div>
 
             <div className='flex flex-col gap-2'>
-              <span className='text-xs text-primary dark:text-primary-light'>Fale Comigo</span>
+              <span className='text-xs text-primary dark:text-primary-light'>{t('home.contact.getInTouch')}</span>
               <ContactCopyRow value='vinioli544@gmail.com' icon={Mail} />
 
               <ContactActionLink label='Whatsapp' href='https://wa.me/5584996591760' icon={MessageCircle} />
