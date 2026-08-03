@@ -5,6 +5,7 @@ import { Check, Copy, Download, ExternalLink, Mail, MessageCircle, Phone, Sparkl
 import { Button } from '@/components/ui/button';
 import { GithubIcon, InstagramIcon, LinkedinIcon } from '@/components/icons/social-icons';
 import { useTranslation } from 'react-i18next';
+import { Footer } from '../../Components/Footer';
 
 export const socialLinks = [
   { label: 'Linkedin', href: 'https://www.linkedin.com/in/lovinidev', icon: LinkedinIcon },
@@ -86,7 +87,7 @@ export const ContactSection = () => {
   const { t } = useTranslation();
 
   return (
-    <div className='w-full min-h-screen flex flex-col justify-center items-center' id='contact'>
+    <div className='w-full min-h-screen flex flex-col justify-center items-center relative lg:pb-20' id='contact'>
       <div className='w-full container px-4 sm:px-6 md:px-9 py-16 md:py-24'>
         <h2 className='flex items-center gap-3 font-heading text-4xl sm:text-5xl md:text-6xl font-extrabold bg-linear-to-r from-black dark:from-white to-primary dark:to-primary-light bg-clip-text text-transparent'>
           {t('home.contact.title')}
@@ -130,6 +131,10 @@ export const ContactSection = () => {
             </div>
           </div>
         </div>
+      </div>
+
+      <div className='lg:absolute bottom-0 left-0 w-full'>
+        <Footer />
       </div>
     </div>
   );
