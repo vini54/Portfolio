@@ -87,18 +87,6 @@ const ContactCopyRow = ({ value, icon: Icon }: ContactCopyRowProps) => {
 export const ContactSection = () => {
   const { t } = useTranslation();
   const revealRef = useScrollReveal<HTMLDivElement>();
-  // O footer mora dentro desta seção, mas tem reveal próprio: o gatilho é este
-  // wrapper (estático) e quem se move é o <footer> marcado como bloco.
-  //
-  // Ranges próprios porque ele vive no rodapé: seu topo nunca sobe além de ~90%
-  // da viewport, então os padrões (`top 85%` → `top 30%`) seriam inalcançáveis e
-  // o footer nunca terminaria de se revelar. Aqui ele entra ao cruzar o fundo da
-  // tela e o `clamp` faz o scrub completar exatamente no fim da página.
-  const footerRevealRef = useScrollReveal<HTMLDivElement>({
-    blockStart: 'top bottom',
-    blockEnd: 'clamp(top 75%)',
-    itemsStart: 'top bottom'
-  });
 
   return (
     <div
@@ -154,11 +142,8 @@ export const ContactSection = () => {
         </div>
       </div>
 
-      {/* `overflow-hidden` é obrigatório: sem ele o footer deslocado para baixo
-          estica o documento, o que muda o scroll máximo e invalida o `end` já
-          calculado do próprio trigger. Recortado aqui, a barra sobe de dentro do
-          seu próprio espaço e a altura da página não se mexe. */}
-      <div className='lg:absolute bottom-0 left-0 w-full overflow-hidden' ref={footerRevealRef}>
+      {/* Só posicionamento — o footer cuida do próprio reveal e do próprio recorte. */}
+      <div className='lg:absolute bottom-0 left-0 w-full'>
         <Footer />
       </div>
     </div>

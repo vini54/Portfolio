@@ -55,7 +55,7 @@ export function useScrollReveal<T extends HTMLElement>({
         if (block) {
           gsap.fromTo(
             block,
-            { y: 72, opacity: 0 },
+            { y: 80, opacity: 0 },
             {
               y: 0,
               opacity: 1,
@@ -63,7 +63,8 @@ export function useScrollReveal<T extends HTMLElement>({
               // clamp() prende o `end` aos limites da página: sem ele, um bloco
               // perto do fim do documento pediria um `end` além do scroll máximo
               // e nunca completaria. Atenção: clamp() **não** resgata um `start`
-              // inalcançável — daí os overrides para o footer (ver Contact).
+              // inalcançável — foi por não haver curso de scroll suficiente que o
+              // footer saiu deste hook e ganhou animação por tempo (Footer.tsx).
               scrollTrigger: { trigger: root, start: blockStart, end: blockEnd, scrub: true }
             }
           );
