@@ -88,7 +88,7 @@ export const Footer = () => {
             opacidade — `hidden`/`block` não é animável na troca de tema. */}
           <div className='grid justify-end justify-items-end max-sm:col-span-2 max-lg:col-span-3 max-lg:-mb-2'>
             <Image
-              src='/logo-icon-bg-dark.png'
+              src='/logo-icon-bg-dark.svg'
               width={200}
               height={200}
               alt=''
@@ -97,7 +97,7 @@ export const Footer = () => {
             />
 
             <Image
-              src='/logo-icon-bg-light.png'
+              src='/logo-icon-bg-light.svg'
               width={200}
               height={200}
               alt=''

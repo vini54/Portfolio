@@ -77,7 +77,7 @@ export const Header = () => {
                     `hidden`/`block` não é animável na troca de tema. */}
                 <span className='relative block size-6'>
                   <Image
-                    src={'/logo-icon-white.png'}
+                    src={'/logo-icon-white.svg'}
                     width={24}
                     height={24}
                     alt={t('home.header.logoAlt')}
@@ -85,7 +85,7 @@ export const Header = () => {
                   />
 
                   <Image
-                    src={'/logo-icon-black.png'}
+                    src={'/logo-icon-black.svg'}
                     width={24}
                     height={24}
                     alt=''

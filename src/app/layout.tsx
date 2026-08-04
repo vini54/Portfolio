@@ -4,6 +4,8 @@ import './globals.css';
 import { cn } from '@/lib/utils';
 import { ThemeProvider } from '@/hooks/use-theme';
 import { LanguageProvider } from '@/hooks/use-language';
+import { LoadingProvider } from '@/hooks/use-loading';
+import { LoadingOverlay } from '@/components/LoadingOverlay';
 
 const dmSans = DM_Sans({ subsets: ['latin'], variable: '--font-sans' });
 
@@ -20,16 +22,29 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    // `lang` e `dark` são o estado inicial do SSR; ambos os providers ajustam
-    // o atributo/classe no mount se o usuário tiver outra preferência salva.
+    // `lang`, `dark` e `is-loading` são o estado inicial do SSR; os providers
+    // ajustam o atributo/classe no mount. `is-loading` trava o scroll (ver
+    // globals.css) e sai junto com o overlay.
     <html
       lang='pt-BR'
-      className={cn('h-full', 'antialiased', 'font-sans', dmSans.variable, SyneHeading.variable, 'dark')}
+      className={cn(
+        'h-full',
+        'antialiased',
+        'font-sans',
+        dmSans.variable,
+        SyneHeading.variable,
+        'dark',
+        'is-loading'
+      )}
     >
       <body className='min-h-full flex flex-col'>
-        <LanguageProvider>
-          <ThemeProvider>{children}</ThemeProvider>
-        </LanguageProvider>
+        <LoadingProvider>
+          <LanguageProvider>
+            <ThemeProvider>{children}</ThemeProvider>
+          </LanguageProvider>
+
+          <LoadingOverlay />
+        </LoadingProvider>
       </body>
     </html>
   );

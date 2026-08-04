@@ -3,8 +3,11 @@
 import Ferrofluid from '@/components/FerroFluid';
 import { HeroDisplay } from './Display';
 import { HeroStacks } from './Stacks';
+import { useLoading } from '@/hooks/use-loading';
 
 export const HeroSection = () => {
+  const { markReady } = useLoading();
+
   return (
     <div className='w-full h-screen flex flex-col items-center justify-between relative' id='initial'>
       <div className='w-full h-dvh absolute top-0 left-0 opacity-50 z-2'>
@@ -23,6 +26,7 @@ export const HeroSection = () => {
           mouseInteraction
           mouseStrength={1.5}
           mouseRadius={0.25}
+          onReady={() => markReady('hero')}
         />
       </div>
 

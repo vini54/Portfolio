@@ -133,7 +133,20 @@
     cursor: pointer;
   }
   html {
-    @apply font-sans;
+    @apply font-sans scroll-smooth;
+  }
+
+  /* Trava o scroll enquanto o overlay de carregamento está no ar. Vem no HTML do
+     servidor e sai por manipulação imperativa — ver hooks/use-loading.tsx.
+
+     `overflow: hidden` sozinho não segura o toque no iOS Safari — daí o
+     `touch-action` e o `overscroll-behavior` junto. Não custa nada: o overlay
+     cobre tudo e não há o que interagir enquanto ele está no ar. */
+  html.is-loading,
+  html.is-loading body {
+    overflow: hidden;
+    touch-action: none;
+    overscroll-behavior: none;
   }
 
   @keyframes text-translate {
@@ -162,6 +175,25 @@
   .animate-linear-bounce {
     animation: linear-bounce 2s linear infinite;
   }
+
+  @keyframes bounce-pulse {
+    0%,
+    100% {
+      transform: scale(1);
+      /* opacity: 1; */
+      fill: inherit;
+    }
+    50% {
+      transform: scale(1.1);
+      fill: var(--primary);
+      /* opacity: 0.5; */
+    }
+  }
+
+  .animate-bounce-pulse {
+    animation: bounce-pulse 2s linear infinite;
+    transform-origin: center bottom;
+  }
 }
 
 /* --- Transição de tema -----------------------------------------------------
@@ -183,8 +215,8 @@
 .theme-transition *::before,
 .theme-transition *::after {
   transition-property:
-    color, background-color, border-color, outline-color, text-decoration-color, fill, stroke,
-    box-shadow, --tw-gradient-from, --tw-gradient-via, --tw-gradient-to;
+    color, background-color, border-color, outline-color, text-decoration-color, fill, stroke, box-shadow,
+    --tw-gradient-from, --tw-gradient-via, --tw-gradient-to;
   transition-duration: var(--theme-transition-duration);
   transition-timing-function: var(--theme-transition-ease);
   transition-delay: 0s;
