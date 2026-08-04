@@ -7,22 +7,29 @@ export const Footer = () => {
   const { t } = useTranslation();
 
   return (
-    <footer className='w-full relative overflow-hidden bg-primary'>
+    // O gatilho do reveal é o wrapper em Contact/index.tsx — aqui só o bloco.
+    <footer data-reveal-block className='w-full relative overflow-hidden bg-primary'>
       <div className='w-full relative z-10 px-4 sm:px-6 md:px-9 py-2 grid grid-cols-3 items-center gap-4'>
-        <div className='flex flex-col gap-1 max-sm:col-span-3 max-lg:col-span-2'>
+        <div data-reveal-item className='flex flex-col gap-1 max-sm:col-span-3 max-lg:col-span-2'>
           <span className='text-xs text-primary-foreground/70'>{t('home.footer.tagline')}</span>
           <span className='font-heading font-extrabold text-primary-foreground whitespace-nowrap'>
             Vinícius Santos de Oliveira
           </span>
         </div>
 
-        <span className='text-xs text-primary-foreground/80 text-start sm:text-end lg:text-center max-sm:whitespace-nowrap'>
+        <span
+          data-reveal-item
+          className='text-xs text-primary-foreground/80 text-start sm:text-end lg:text-center max-sm:whitespace-nowrap'
+        >
           {t('home.footer.location')}
         </span>
 
         {/* As duas artes ficam empilhadas na mesma célula do grid e alternam por
             opacidade — `hidden`/`block` não é animável na troca de tema. */}
-        <div className='grid justify-end justify-items-end max-sm:col-span-2 max-lg:col-span-3 max-lg:-mb-2'>
+        <div
+          data-reveal-item
+          className='grid justify-end justify-items-end max-sm:col-span-2 max-lg:col-span-3 max-lg:-mb-2'
+        >
           <Image
             src='/logo-icon-bg-dark.png'
             width={200}

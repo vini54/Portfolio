@@ -6,6 +6,7 @@ import { Button } from '@/components/ui/button';
 import { GithubIcon, InstagramIcon, LinkedinIcon } from '@/components/icons/social-icons';
 import { useTranslation } from 'react-i18next';
 import { Footer } from '../../Components/Footer';
+import { useScrollReveal } from '@/hooks/use-scroll-reveal';
 
 export const socialLinks = [
   { label: 'Linkedin', href: 'https://www.linkedin.com/in/lovinidev', icon: LinkedinIcon },
@@ -85,11 +86,31 @@ const ContactCopyRow = ({ value, icon: Icon }: ContactCopyRowProps) => {
 
 export const ContactSection = () => {
   const { t } = useTranslation();
+  const revealRef = useScrollReveal<HTMLDivElement>();
+  // O footer mora dentro desta seção, mas tem reveal próprio: o gatilho é este
+  // wrapper (estático) e quem se move é o <footer> marcado como bloco.
+  //
+  // Ranges próprios porque ele vive no rodapé: seu topo nunca sobe além de ~90%
+  // da viewport, então os padrões (`top 85%` → `top 30%`) seriam inalcançáveis e
+  // o footer nunca terminaria de se revelar. Aqui ele entra ao cruzar o fundo da
+  // tela e o `clamp` faz o scrub completar exatamente no fim da página.
+  const footerRevealRef = useScrollReveal<HTMLDivElement>({
+    blockStart: 'top bottom',
+    blockEnd: 'clamp(top 75%)',
+    itemsStart: 'top bottom'
+  });
 
   return (
-    <div className='w-full min-h-screen flex flex-col justify-center items-center relative lg:pb-20' id='contact'>
-      <div className='w-full container px-4 sm:px-6 md:px-9 py-16 md:py-24'>
-        <h2 className='flex items-center gap-3 font-heading text-4xl sm:text-5xl md:text-6xl font-extrabold bg-linear-to-r from-black dark:from-white to-primary dark:to-primary-light bg-clip-text text-transparent'>
+    <div
+      className='w-full min-h-screen flex flex-col justify-center items-center relative lg:pb-20'
+      id='contact'
+      ref={revealRef}
+    >
+      <div className='w-full container px-4 sm:px-6 md:px-9 py-16 md:py-24' data-reveal-block>
+        <h2
+          data-reveal-item
+          className='flex items-center gap-3 font-heading text-4xl sm:text-5xl md:text-6xl font-extrabold bg-linear-to-r from-black dark:from-white to-primary dark:to-primary-light bg-clip-text text-transparent'
+        >
           {t('home.contact.title')}
           <Sparkle className='fill-primary text-primary size-8 md:size-10' />
         </h2>
@@ -98,7 +119,7 @@ export const ContactSection = () => {
 
         <div className='w-full rounded-3xl border border-primary/20 bg-primary/10 p-4 sm:p-8 md:p-12'>
           <div className='grid grid-cols-1 lg:grid-cols-[1.5fr_1fr_1fr] gap-8 md:gap-12'>
-            <div className='flex flex-col gap-8 md:gap-16'>
+            <div data-reveal-item className='flex flex-col gap-8 md:gap-16'>
               <div className='flex flex-col gap-2'>
                 <span className='text-xs text-primary dark:text-primary-light'>{t('home.contact.kicker')}</span>
                 <p className='font-heading font-bold text-base sm:text-xl md:text-2xl text-foreground'>
@@ -112,14 +133,14 @@ export const ContactSection = () => {
               </Button>
             </div>
 
-            <div className='flex flex-col gap-2'>
+            <div data-reveal-item className='flex flex-col gap-2'>
               <span className='text-xs text-primary dark:text-primary-light'>{t('home.common.social')}</span>
               {socialLinks.map((social) => (
                 <ContactActionLink key={social.label} label={social.label} href={social.href} icon={social.icon} />
               ))}
             </div>
 
-            <div className='flex flex-col gap-2'>
+            <div data-reveal-item className='flex flex-col gap-2'>
               <span className='text-xs text-primary dark:text-primary-light'>{t('home.contact.getInTouch')}</span>
               <ContactCopyRow value='vinioli544@gmail.com' icon={Mail} />
 
@@ -133,7 +154,11 @@ export const ContactSection = () => {
         </div>
       </div>
 
-      <div className='lg:absolute bottom-0 left-0 w-full'>
+      {/* `overflow-hidden` é obrigatório: sem ele o footer deslocado para baixo
+          estica o documento, o que muda o scroll máximo e invalida o `end` já
+          calculado do próprio trigger. Recortado aqui, a barra sobe de dentro do
+          seu próprio espaço e a altura da página não se mexe. */}
+      <div className='lg:absolute bottom-0 left-0 w-full overflow-hidden' ref={footerRevealRef}>
         <Footer />
       </div>
     </div>

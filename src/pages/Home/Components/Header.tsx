@@ -29,12 +29,38 @@ export const Header = () => {
         })
         .progress(1);
 
+      // Quantas seções estão pedindo o header visível agora. Contador em vez de
+      // booleano porque duas janelas vizinhas podem se sobrepor.
+      let holds = 0;
+
       ScrollTrigger.create({
         start: 'top top',
         end: 'max',
         onUpdate: (self) => {
-          self.direction === -1 ? showAnim.play() : showAnim.reverse();
+          if (holds > 0 || self.direction === -1) showAnim.play();
+          else showAnim.reverse();
         }
+      });
+
+      // Mostra o header de novo quando uma seção está chegando ao fim. As seções
+      // vêm de `navItems` — a mesma fonte única que alimenta a navegação.
+      navItems.forEach(({ href }) => {
+        const section = document.querySelector(href);
+        if (!section) return;
+
+        ScrollTrigger.create({
+          trigger: section,
+          // Deslocamentos empurram o ponto do viewport para baixo, então isso
+          // dispara *antes* de `bottom bottom` (seção 100% visível): falta ~10%
+          // dela entrar. Em seções mais altas que a tela, equivale a "o fim está
+          // chegando".
+          start: 'bottom bottom+=10%',
+          end: '+=30%', // segura visível por 30% de viewport de rolagem
+          onToggle: (self) => {
+            holds += self.isActive ? 1 : -1;
+            if (self.isActive) showAnim.play();
+          }
+        });
       });
     },
     { scope: headerRef }
