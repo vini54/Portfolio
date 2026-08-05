@@ -90,8 +90,8 @@ export const ContactSection = () => {
   const { currentLanguage } = useLanguage();
   const revealRef = useScrollReveal<HTMLElement>();
 
-  const handleDownloadCv = () => {
-    if (currentLanguage === 'en') {
+  const handleDownloadCv = (alt?: boolean) => {
+    if (currentLanguage === 'en' || alt) {
       window.open(siteConfig.cv.english, '_blank');
       return;
     }
@@ -129,11 +129,16 @@ export const ContactSection = () => {
               </div>
 
               <div data-stagger-item className='flex flex-col gap-2'>
-                <Button variant='default' className='w-fit' onClick={handleDownloadCv}>
+                <Button variant='default' className='w-fit' onClick={() => handleDownloadCv()}>
                   <Download className='size-4' />
                   {t('home.common.downloadCv')}
                 </Button>
-                <Button variant={'link'} className='w-fit p-0 text-sm text-muted-foreground hover:text-foreground'>
+
+                <Button
+                  variant={'link'}
+                  className='w-fit p-0 text-sm text-muted-foreground hover:text-foreground'
+                  onClick={() => handleDownloadCv(true)}
+                >
                   {t('home.menuDrawer.downloadCvAlt')}
                 </Button>
               </div>

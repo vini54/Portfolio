@@ -12,6 +12,8 @@ import { navItems } from './nav-items';
 import { scrollToSection } from '@/lib/scroll-to-section';
 import { socialLinks } from '../Sections';
 import { useTranslation } from 'react-i18next';
+import { siteConfig } from '@/lib/site-config';
+import { useLanguage } from '@/hooks/use-language';
 
 gsap.registerPlugin(useGSAP);
 
@@ -25,6 +27,7 @@ interface MenuDrawerProps {
 }
 
 export const MenuDrawer = forwardRef<MenuDrawerHandle, MenuDrawerProps>(({ open, onCloseComplete }, ref) => {
+  const { currentLanguage } = useLanguage();
   const panelRef = useRef<HTMLDivElement>(null);
   const backdropRef = useRef<HTMLDivElement>(null);
   const closeRef = useRef<() => void>(() => {});
@@ -71,6 +74,15 @@ export const MenuDrawer = forwardRef<MenuDrawerHandle, MenuDrawerProps>(({ open,
     },
     { scope: panelRef, dependencies: [open] }
   );
+
+  const handleDownloadCv = (alt?: boolean) => {
+    if (currentLanguage === 'en' || alt) {
+      window.open(siteConfig.cv.english, '_blank');
+      return;
+    }
+
+    window.open(siteConfig.cv.portuguese, '_blank');
+  };
 
   useImperativeHandle(ref, () => ({ close: () => closeRef.current() }), []);
 
