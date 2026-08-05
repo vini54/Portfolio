@@ -1,7 +1,5 @@
 import type { ptBR } from './pt-BR';
 
-// Espelha a árvore do pt-BR trocando cada string literal por `string`.
-// Com o `satisfies` no final, chave faltando ou sobrando quebra a compilação.
 type Locale<T> = { [K in keyof T]: T[K] extends string ? string : Locale<T[K]> };
 
 export const en = {
@@ -39,7 +37,6 @@ export const en = {
       title: 'Services',
       tagline: 'Expertise · Scale · Quality',
       items: {
-        // Em inglês o adjetivo vem antes — as duas linhas do layout são invertidas.
         frontend: {
           titleTop: 'Advanced',
           titleBottom: 'Front-end',

@@ -17,9 +17,6 @@ if (!i18n.isInitialized) {
       'pt-BR': { translation: ptBR },
       en: { translation: en }
     },
-    // `lng` fixo de propósito: o HTML do servidor sai sempre em pt-BR e a troca
-    // para en acontece no efeito do LanguageProvider. Detectar o idioma aqui
-    // faria o primeiro render do cliente divergir do servidor.
     lng: DEFAULT_LANGUAGE,
     fallbackLng: DEFAULT_LANGUAGE,
     supportedLngs: LANGUAGES,

@@ -31,7 +31,6 @@ type LoadingContextValue = {
 const LoadingContext = createContext<LoadingContextValue | null>(null);
 
 export function LoadingProvider({ children }: { children: React.ReactNode }) {
-  // Estado inicial determinístico ("carregando"), igual ao HTML do servidor.
   const [isLoading, setIsLoading] = useState(true);
   const pendingRef = useRef<Set<LoadingSignal>>(new Set(SIGNALS));
   const releaseTimeoutRef = useRef<number | null>(null);
@@ -47,9 +46,6 @@ export function LoadingProvider({ children }: { children: React.ReactNode }) {
     document.documentElement.classList.remove(LOADING_CLASS);
     window.scrollTo(0, 0);
 
-    // Os triggers foram criados com o <html> em `overflow: hidden`. Destravar o
-    // scroll e voltar ao topo muda as medições — sem o refresh, os start/end
-    // ficam calculados sobre um layout que não existe mais.
     ScrollTrigger.refresh();
 
     setIsLoading(false);
@@ -59,10 +55,6 @@ export function LoadingProvider({ children }: { children: React.ReactNode }) {
   const scheduleRelease = useCallback(() => {
     if (releasedRef.current || releaseTimeoutRef.current !== null) return;
 
-    // `performance.now()` conta desde a navegação, que é praticamente quando o
-    // overlay apareceu (ele vem no HTML do servidor). Medir daqui, e não do
-    // mount do provider, é o que corresponde ao tempo que o usuário de fato
-    // olhou para a tela de carregamento — e não depende da ordem dos efeitos.
     const wait = Math.max(0, MIN_VISIBLE_MS - performance.now());
 
     releaseTimeoutRef.current = window.setTimeout(() => {
@@ -80,7 +72,6 @@ export function LoadingProvider({ children }: { children: React.ReactNode }) {
   );
 
   useEffect(() => {
-    // Impede o navegador de restaurar o scroll por cima do nosso scrollTo(0, 0).
     const previousRestoration = history.scrollRestoration;
     history.scrollRestoration = 'manual';
 

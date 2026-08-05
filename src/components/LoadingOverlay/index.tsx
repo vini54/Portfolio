@@ -19,8 +19,6 @@ gsap.registerPlugin(useGSAP);
 export const LoadingOverlay = () => {
   const { isLoading } = useLoading();
   const overlayRef = useRef<HTMLDivElement>(null);
-  // Desmontagem adiada: o fade precisa terminar antes do nó sair do DOM —
-  // mesmo cuidado do MenuDrawer.
   const [visible, setVisible] = useState(true);
 
   useGSAP(
@@ -45,7 +43,6 @@ export const LoadingOverlay = () => {
       aria-hidden='true'
       className='fixed inset-0 z-100 flex items-center justify-center bg-background'
     >
-      {/* Mesmo par empilhado do header: `hidden`/`block` não é animável na troca de tema. */}
       <span className='relative block size-20 overflow-visible visible'>
         <LogoWhitePath
           className='absolute inset-0 size-20 opacity-0 dark:opacity-100 transition-opacity duration-300 ease-in-out visible overflow-visible'

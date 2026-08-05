@@ -124,9 +124,9 @@ export const MenuDrawer = forwardRef<MenuDrawerHandle, MenuDrawerProps>(({ open,
               <Download className='size-4' />
               {t('home.common.downloadCv')}
             </Button>
-            <a href='#' className='text-sm text-muted-foreground hover:text-foreground'>
+            <Button variant={'link'} className='w-fit p-0 text-sm text-muted-foreground hover:text-foreground'>
               {t('home.menuDrawer.downloadCvAlt')}
-            </a>
+            </Button>
           </section>
         </div>
 

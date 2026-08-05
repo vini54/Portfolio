@@ -9,8 +9,12 @@ export const HeroSection = () => {
   const { markReady } = useLoading();
 
   return (
-    <div className='w-full h-screen flex flex-col items-center justify-between relative' id='initial'>
-      <div className='w-full h-dvh absolute top-0 left-0 opacity-50 z-2'>
+    <section
+      className='w-full h-svh flex flex-col items-center justify-between relative'
+      id='initial'
+      aria-labelledby='hero-title'
+    >
+      <div aria-hidden='true' className='w-full h-svh absolute top-0 left-0 opacity-50 z-2'>
         <Ferrofluid
           colors={['#BE3455']}
           speed={0.5}
@@ -21,7 +25,7 @@ export const HeroSection = () => {
           sharpness={2.5}
           shimmer={1.5}
           glow={2}
-          flowDirection='down'
+          flowDirection='left'
           opacity={1}
           mouseInteraction
           mouseStrength={1.5}
@@ -33,6 +37,6 @@ export const HeroSection = () => {
       <HeroDisplay />
 
       <HeroStacks />
-    </div>
+    </section>
   );
 };

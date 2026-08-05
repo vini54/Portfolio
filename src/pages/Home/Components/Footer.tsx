@@ -26,17 +26,12 @@ export const Footer = () => {
     () => {
       const mm = gsap.matchMedia();
 
-      // Sem o branch nada é criado e os elementos ficam no estado natural —
-      // o próprio fallback de `prefers-reduced-motion`.
       mm.add('(prefers-reduced-motion: no-preference)', () => {
-        // O texto final vem do DOM: o nome continua existindo só no JSX.
         const fullName = nameRef.current?.textContent ?? '';
 
         const tl = gsap.timeline({
           scrollTrigger: {
             trigger: triggerRef.current,
-            // Folga de 120px: dispara antes do footer aparecer, então um scroll
-            // curto para cima não desfaz tudo no mesmo instante.
             start: 'top bottom+=120',
             toggleActions: 'play none none reverse'
           }
@@ -48,9 +43,6 @@ export const Footer = () => {
           { yPercent: 0, opacity: 1, duration: 1.1, ease: 'power1.out' }
         );
 
-        // Digitação: um caractere por vez, ritmo constante, sem caret — o
-        // TextPlugin não injeta nenhum elemento. `padSpace` reserva o espaço
-        // final para o texto não empurrar nada enquanto cresce.
         tl.fromTo(
           nameRef.current,
           { text: { value: '' } },
@@ -65,11 +57,6 @@ export const Footer = () => {
   );
 
   return (
-    // `overflow-hidden` é obrigatório: sem o recorte, o footer deslocado para
-    // baixo estica o documento, o que muda o scroll máximo e invalida o `start`
-    // já calculado do próprio trigger. Este wrapper também é o gatilho — o
-    // elemento animado nunca pode ser o gatilho, senão o deslocamento no eixo Y
-    // desloca as medições a cada `refresh()`.
     <div ref={triggerRef} className='w-full overflow-hidden'>
       <footer ref={footerRef} className='w-full relative overflow-hidden bg-primary'>
         <div className='w-full relative z-10 px-4 sm:px-6 md:px-9 py-2 grid grid-cols-3 items-center gap-4'>
@@ -84,8 +71,6 @@ export const Footer = () => {
             {t('home.footer.location')}
           </span>
 
-          {/* As duas artes ficam empilhadas na mesma célula do grid e alternam por
-            opacidade — `hidden`/`block` não é animável na troca de tema. */}
           <div className='grid justify-end justify-items-end max-sm:col-span-2 max-lg:col-span-3 max-lg:-mb-2'>
             <Image
               src='/logo-icon-bg-dark.svg'

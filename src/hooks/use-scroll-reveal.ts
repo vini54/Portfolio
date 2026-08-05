@@ -46,8 +46,6 @@ export function useScrollReveal<T extends HTMLElement>({
 
       const mm = gsap.matchMedia();
 
-      // Sem o branch, nenhuma animação é criada e os elementos ficam no estado
-      // natural — é o próprio fallback de `prefers-reduced-motion`.
       mm.add('(prefers-reduced-motion: no-preference)', () => {
         const block = root.querySelector<HTMLElement>('[data-reveal-block]');
         const items = gsap.utils.toArray<HTMLElement>('[data-reveal-item]', root);
@@ -60,11 +58,6 @@ export function useScrollReveal<T extends HTMLElement>({
               y: 0,
               opacity: 1,
               ease: 'none',
-              // clamp() prende o `end` aos limites da página: sem ele, um bloco
-              // perto do fim do documento pediria um `end` além do scroll máximo
-              // e nunca completaria. Atenção: clamp() **não** resgata um `start`
-              // inalcançável — foi por não haver curso de scroll suficiente que o
-              // footer saiu deste hook e ganhou animação por tempo (Footer.tsx).
               scrollTrigger: { trigger: root, start: blockStart, end: blockEnd, scrub: true }
             }
           );

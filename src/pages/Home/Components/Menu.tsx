@@ -14,9 +14,6 @@ export const Menu = () => {
     if (next) {
       setOpen(true);
     } else {
-      // Defer the actual close until the GSAP exit animation finishes, otherwise
-      // Base UI hides the popup (display: none) the instant `open` becomes false,
-      // since it has no CSS transition on the popup to wait for.
       drawerRef.current?.close();
     }
   };

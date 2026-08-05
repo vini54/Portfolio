@@ -12,11 +12,17 @@ const stats = [
 
 export const AboutSection = () => {
   const { t } = useTranslation();
-  const revealRef = useScrollReveal<HTMLDivElement>();
+  const revealRef = useScrollReveal<HTMLElement>();
 
   return (
-    <div className='w-full min-h-screen flex flex-col items-center justify-center relative' id='about' ref={revealRef}>
+    <section
+      className='w-full min-h-screen flex flex-col items-center justify-center relative'
+      id='about'
+      aria-labelledby='about-title'
+      ref={revealRef}
+    >
       <div
+        aria-hidden='true'
         className='w-full h-full absolute inset-0 pointer-events-none'
         style={{
           backgroundImage: 'url(/pattern-vector.svg)',
@@ -30,6 +36,7 @@ export const AboutSection = () => {
         <GlassSurface borderRadius={24} height='auto' blur={50} displace={1} width='100%'>
           <div className='w-full p-4 md:p-8 lg:p-12 flex flex-col gap-8 text-left'>
             <h2
+              id='about-title'
               data-reveal-item
               className='font-heading text-3xl md:text-5xl lg:text-6xl font-extrabold bg-linear-to-r from-gray-800 dark:from-primary-light to-primary dark:to-primary bg-clip-text text-transparent w-fit'
             >
@@ -61,6 +68,6 @@ export const AboutSection = () => {
           </div>
         </GlassSurface>
       </div>
-    </div>
+    </section>
   );
 };

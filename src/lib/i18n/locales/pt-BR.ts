@@ -1,5 +1,3 @@
-// Locale de referência: as chaves definidas aqui tipam o `en.ts`.
-// Conteúdo idêntico ao que estava hardcoded no JSX antes da i18n.
 export const ptBR = {
   home: {
     nav: {
@@ -14,7 +12,6 @@ export const ptBR = {
     },
 
     hero: {
-      // <hl> vira o <span> em negrito — ver Hero/Display.tsx.
       description:
         '<hl>Desenvolvedor</hl> front-end especializado em <hl>Web e Mobile</hl> Engineering. Construo interfaces que funcionam com precisão e parecem que foram feitas com cuidado.'
     },
@@ -25,7 +22,6 @@ export const ptBR = {
         'Desenvolvedor Front-End com 4+ anos de experiência e foco em Frontend Engineering. Atuo no desenvolvimento de interfaces web com React e Next.js e aplicações mobile com React Native e Flutter, com TypeScript como base em ambas as plataformas.',
       paragraph2:
         'Tenho experiência na criação de design systems do zero, componentização escalável e integração direta entre desenvolvimento e design. Acredito que decisões de interface são tão técnicas quanto decisões de arquitetura — e é com essa mentalidade que entrego.',
-      // A quebra de linha é intencional: renderizado com `whitespace-pre`.
       stats: {
         years: 'Anos de\nExperiência',
         companies: 'Empresas\nAtendidas',
@@ -74,7 +70,6 @@ export const ptBR = {
     menuDrawer: {
       close: 'Fechar menu',
       resume: 'Currículo',
-      // O link secundário é sempre o CV no outro idioma.
       downloadCvAlt: 'Download CV (en)',
       contactMe: 'Contate-me'
     },
@@ -87,7 +82,6 @@ export const ptBR = {
       label: 'Linguagem'
     },
 
-    // Strings que aparecem em mais de uma seção.
     common: {
       downloadCv: 'Baixar CV',
       social: 'Social'

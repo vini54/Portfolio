@@ -4,7 +4,6 @@ import { createContext, useContext, useEffect, useRef, useState } from 'react';
 
 type Theme = 'light' | 'dark';
 
-// Precisa bater com --theme-transition-duration em globals.css.
 const THEME_TRANSITION_MS = 320;
 
 type ThemeContextValue = {
@@ -22,7 +21,6 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
     const stored = localStorage.getItem('theme') as Theme | null;
     const initial = stored ?? 'dark';
     setTheme(initial);
-    // Sem `.theme-transition` aqui: a sincronização inicial deve ser instantânea.
     document.documentElement.classList.toggle('dark', initial === 'dark');
   }, []);
 
@@ -35,7 +33,6 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
   const toggleTheme = () => {
     const root = document.documentElement;
 
-    // Liga as transições de cor só durante a troca — ver globals.css.
     root.classList.add('theme-transition');
     if (transitionTimeout.current !== null) window.clearTimeout(transitionTimeout.current);
     transitionTimeout.current = window.setTimeout(() => {

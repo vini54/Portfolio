@@ -29,8 +29,6 @@ export const Header = () => {
         })
         .progress(1);
 
-      // Quantas seções estão pedindo o header visível agora. Contador em vez de
-      // booleano porque duas janelas vizinhas podem se sobrepor.
       let holds = 0;
 
       ScrollTrigger.create({
@@ -42,18 +40,12 @@ export const Header = () => {
         }
       });
 
-      // Mostra o header de novo quando uma seção está chegando ao fim. As seções
-      // vêm de `navItems` — a mesma fonte única que alimenta a navegação.
       navItems.forEach(({ href }) => {
         const section = document.querySelector(href);
         if (!section) return;
 
         ScrollTrigger.create({
           trigger: section,
-          // Deslocamentos empurram o ponto do viewport para baixo, então isso
-          // dispara *antes* de `bottom bottom` (seção 100% visível): falta ~10%
-          // dela entrar. Em seções mais altas que a tela, equivale a "o fim está
-          // chegando".
           start: 'bottom bottom+=10%',
           end: '+=30%', // segura visível por 30% de viewport de rolagem
           onToggle: (self) => {
@@ -73,8 +65,6 @@ export const Header = () => {
           <div className='w-full flex justify-between items-center'>
             <div className='flex items-center gap-2 sm:gap-3 p-2 justify-start w-full'>
               <button onClick={scrollToTop} aria-label={t('home.header.backToTop')} className='p-1.5 cursor-pointer'>
-                {/* As duas versões ficam empilhadas e alternam por opacidade —
-                    `hidden`/`block` não é animável na troca de tema. */}
                 <span className='relative block size-6'>
                   <Image
                     src={'/logo-icon-white.svg'}

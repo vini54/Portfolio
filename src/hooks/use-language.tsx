@@ -30,7 +30,6 @@ function detectLanguage(): Language {
 }
 
 export function LanguageProvider({ children }: { children: React.ReactNode }) {
-  // Precisa bater com o HTML do servidor (<html lang='pt-BR'>) — ver src/lib/i18n.
   const [currentLanguage, setCurrentLanguage] = useState<Language>(DEFAULT_LANGUAGE);
 
   useEffect(() => {
@@ -39,9 +38,6 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
 
     if (initial !== DEFAULT_LANGUAGE) {
       i18n.changeLanguage(initial);
-      // Resolver o idioma durante o render (localStorage/navigator) faria o primeiro
-      // render do cliente divergir do HTML do servidor. A sincronização é pós-mount
-      // de propósito — mesmo trade-off do ThemeProvider.
       // eslint-disable-next-line react-hooks/set-state-in-effect
       setCurrentLanguage(initial);
     }

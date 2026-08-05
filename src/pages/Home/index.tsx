@@ -8,13 +8,15 @@ export default function HomePage() {
     <div className='flex flex-col flex-1 items-center justify-center font-sans bg-background'>
       <Header />
 
-      <HeroSection />
+      <main className='w-full flex flex-col items-center justify-center'>
+        <HeroSection />
 
-      <AboutSection />
+        <AboutSection />
 
-      <ServicesSection />
+        <ServicesSection />
 
-      <ContactSection />
+        <ContactSection />
+      </main>
     </div>
   );
 }

@@ -237,9 +237,6 @@ const Ferrofluid: React.FC<FerrofluidProps> = ({
   onReady
 }) => {
   const containerRef = useRef<HTMLDivElement | null>(null);
-  // `onReady` fica em ref de propósito: o array de dependências do efeito inclui
-  // `colors`, que o Hero passa inline (array novo a cada render). Somar um
-  // callback inline às dependências destruiria e recriaria o WebGL a cada render.
   const onReadyRef = useRef(onReady);
   const readyFiredRef = useRef(false);
   const rafRef = useRef<number | null>(null);
@@ -250,9 +247,6 @@ const Ferrofluid: React.FC<FerrofluidProps> = ({
   const mouseTargetRef = useRef<[number, number]>([0, 0]);
   const lastTimeRef = useRef(0);
 
-  // Mantém a ref em dia sem escrever durante o render. Declarado antes do efeito
-  // do WebGL de propósito: os efeitos rodam na ordem de declaração, então a ref
-  // já está atualizada quando o caminho de falha do WebGL a consulta.
   useEffect(() => {
     onReadyRef.current = onReady;
   }, [onReady]);
@@ -330,8 +324,6 @@ const Ferrofluid: React.FC<FerrofluidProps> = ({
       meshRef.current = mesh;
     } catch (e) {
       console.error('Ferrofluid: failed to initialize WebGL renderer', e);
-      // Não há mais nada a esperar — quem depende disso (o overlay de
-      // carregamento) não pode ficar preso quando o WebGL não sobe.
       if (!readyFiredRef.current) {
         readyFiredRef.current = true;
         onReadyRef.current?.();
@@ -383,7 +375,6 @@ const Ferrofluid: React.FC<FerrofluidProps> = ({
       if (!paused && programRef.current && meshRef.current) {
         try {
           renderer.render({ scene: meshRef.current });
-          // Só depois de haver pixel na tela — criar o programa não basta.
           if (!readyFiredRef.current) {
             readyFiredRef.current = true;
             onReadyRef.current?.();

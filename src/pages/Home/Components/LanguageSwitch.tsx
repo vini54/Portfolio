@@ -14,7 +14,6 @@ export const LanguageSwitch = () => {
 
       <Tabs.Root value={currentLanguage} onValueChange={(value) => changeLanguage(value as Language)}>
         <Tabs.List className='inline-flex items-center gap-1 rounded-full bg-muted p-1 cursor-pointer'>
-          {/* Endônimos: cada idioma se escreve nele mesmo, então não são traduzidos. */}
           <Tabs.Tab
             value='en'
             className='rounded-full px-3 py-1.5 text-sm text-muted-foreground transition-colors data-active:bg-primary data-active:text-primary-foreground'
