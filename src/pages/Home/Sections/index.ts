@@ -1,4 +1,4 @@
-export * from './About';
-export * from './Hero';
-export * from './Services';
-export * from './Contact';
+export { AboutSection } from './About';
+export { HeroSection } from './Hero';
+export { ServicesSection } from './Services';
+export { ContactSection, socialLinks } from './Contact';
