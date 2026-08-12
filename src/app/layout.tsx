@@ -9,6 +9,8 @@ import { LanguageProvider } from '@/hooks/use-language';
 import { LoadingProvider } from '@/hooks/use-loading';
 import { LoadingOverlay } from '@/components/LoadingOverlay';
 
+import { Analytics } from "@vercel/analytics/next"
+
 const dmSans = DM_Sans({ subsets: ['latin'], variable: '--font-sans' });
 
 const SyneHeading = Syne({ subsets: ['latin'], variable: '--font-heading' });
@@ -87,7 +89,10 @@ export default function RootLayout({
         'is-loading'
       )}
     >
+      <Analytics />
+      
       <body className='min-h-full flex flex-col'>
+
         <PersonJsonLd />
 
         <LoadingProvider>
