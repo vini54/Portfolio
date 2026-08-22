@@ -21,11 +21,11 @@ export const en = {
     },
 
     about: {
-      title: 'About-',
+      title: 'About',
       paragraph1:
         'Front-End developer with 4+ years of experience focused on Frontend Engineering. I build web interfaces with React and Next.js and mobile apps with React Native and Flutter, with TypeScript as the foundation on both platforms.',
       paragraph2:
-        "I have experience building design systems from scratch, scalable componentization and direct integration between development and design. I believe interface decisions are as technical as architecture decisions — and that's the mindset I deliver with.",
+        'I have experience building design systems from scratch, scalable componentization and direct integration between development and design. I believe interface decisions are as technical as architecture decisions.',
       stats: {
         years: 'Years of\nExperience',
         companies: 'Companies\nServed',
@@ -47,13 +47,13 @@ export const en = {
           titleTop: 'Mobile',
           titleBottom: 'Applications',
           description:
-            'Cross-platform apps with React Native for iOS and Android. Native navigation, fluid animations, API integration and store publishing. One codebase, two platforms — without giving up the native experience.'
+            'Cross-platform apps with React Native for iOS and Android. Native navigation, fluid animations, API integration and store publishing. One codebase, two platforms, without giving up the native experience.'
         },
         designToCode: {
           titleTop: 'Design to',
           titleBottom: 'Code',
           description:
-            "I turn design systems into real code — viable and scalable. It's not just implementing the Figma: it's making sure the design logic survives development — tokens, variants, interaction states and documentation the team actually uses."
+            "I turn design systems into real code, viable and scalable. It's not just implementing the Figma: it's making sure the design logic survives development, tokens, variants, interaction states and documentation the team actually uses."
         }
       }
     },

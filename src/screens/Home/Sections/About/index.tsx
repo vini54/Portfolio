@@ -3,6 +3,7 @@
 import GlassSurface from '@/components/GlassSurface';
 import { useTranslation } from 'react-i18next';
 import { useScrollReveal } from '@/hooks/use-scroll-reveal';
+import { Sparkle } from 'lucide-react';
 
 const stats = [
   { id: 'years', value: '4+', labelKey: 'home.about.stats.years' },
@@ -38,14 +39,15 @@ export const AboutSection = () => {
             <h2
               id='about-title'
               data-reveal-item
-              className='font-heading text-3xl md:text-5xl lg:text-6xl font-extrabold bg-linear-to-r from-gray-800 dark:from-primary-light to-primary dark:to-primary bg-clip-text text-transparent w-fit'
+              className='flex items-center gap-3 font-heading text-3xl md:text-5xl lg:text-6xl font-extrabold bg-linear-to-r from-gray-800 dark:from-primary-light to-primary dark:to-primary bg-clip-text text-transparent w-fit'
             >
               {t('home.about.title')}
+              <Sparkle className='fill-primary text-primary size-8 md:size-10' />
             </h2>
 
             <div data-reveal-item className='flex flex-col gap-2'>
-              <p className='text-sm sm:text-base text-muted-foreground'>{t('home.about.paragraph1')}</p>
-              <p className='text-sm sm:text-base text-muted-foreground'>{t('home.about.paragraph2')}</p>
+              <p className='text-base sm:text-lg md:text-xl text-accent-foreground'>{t('home.about.paragraph1')}</p>
+              <p className='text-base sm:text-lg md:text-xl text-accent-foreground'>{t('home.about.paragraph2')}</p>
             </div>
 
             <div className='w-full flex items-center justify-between max-md:justify-start sm:divide-x sm:divide-border mt-2 sm:mt-8'>
@@ -59,7 +61,7 @@ export const AboutSection = () => {
                     {stat.value}
                   </span>
 
-                  <span className='font-heading text-base sm:text-lg md:text-xl lg:text-3xl text-muted-foreground text-center whitespace-pre'>
+                  <span className='font-heading text-base sm:text-lg md:text-xl lg:text-3xl text-accent-foreground text-center whitespace-pre'>
                     {t(stat.labelKey)}
                   </span>
                 </div>
