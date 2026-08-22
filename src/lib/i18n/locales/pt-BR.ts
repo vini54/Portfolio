@@ -17,11 +17,11 @@ export const ptBR = {
     },
 
     about: {
-      title: 'Sobre-',
+      title: 'Sobre',
       paragraph1:
         'Desenvolvedor Front-End com 4+ anos de experiência e foco em Frontend Engineering. Atuo no desenvolvimento de interfaces web com React e Next.js e aplicações mobile com React Native e Flutter, com TypeScript como base em ambas as plataformas.',
       paragraph2:
-        'Tenho experiência na criação de design systems do zero, componentização escalável e integração direta entre desenvolvimento e design. Acredito que decisões de interface são tão técnicas quanto decisões de arquitetura — e é com essa mentalidade que entrego.',
+        'Tenho experiência na criação de design systems do zero, componentização escalável e integração direta entre desenvolvimento e design. Acredito que decisões de interface são tão técnicas quanto decisões de arquitetura.',
       stats: {
         years: 'Anos de\nExperiência',
         companies: 'Empresas\nAtendidas',
@@ -43,13 +43,13 @@ export const ptBR = {
           titleTop: 'Aplicações',
           titleBottom: 'Mobile',
           description:
-            'Apps multiplataforma com React Native para iOS e Android. Navegação nativa, animações fluidas, integração com APIs e publicação nas lojas. Um codebase, duas plataformas — sem abrir mão da experiência nativa.'
+            'Apps multiplataforma com React Native para iOS e Android. Navegação nativa, animações fluidas, integração com APIs e publicação nas lojas. Um codebase, duas plataformas sem abrir mão da experiência nativa.'
         },
         designToCode: {
           titleTop: 'Design to',
           titleBottom: 'Code',
           description:
-            'Transformo sistemas de design em código real, viável e escalável. Não é só implementar o Figma — é garantir que a lógica de design sobreviva ao desenvolvimento: tokens, variantes, estados de interação e documentação que o time usa de verdade.'
+            'Transformo sistemas de design em código real, viável e escalável. Não é só implementar o Figma, é garantir que a lógica de design sobreviva ao desenvolvimento: tokens, variantes, estados de interação e documentação que o time usa de verdade.'
         }
       }
     },
