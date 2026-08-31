@@ -42,7 +42,7 @@ export const siteConfig = {
     instagram: 'https://www.instagram.com/santosviniciu/'
   },
   cv: {
-    portuguese: '/curriculo-vinicius-oliveira.pdf.pdf',
-    english: '/resume-vinicius-oliveira.pdf.pdf'
+    portuguese: '/curriculo-vinicius-oliveira.pdf',
+    english: '/resume-vinicius-oliveira.pdf'
   }
 } as const;
