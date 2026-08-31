@@ -132,11 +132,16 @@ export const MenuDrawer = forwardRef<MenuDrawerHandle, MenuDrawerProps>(({ open,
 
           <section data-stagger-item className='flex flex-col gap-2'>
             <span className='text-xs text-muted-foreground'>{t('home.menuDrawer.resume')}</span>
-            <Button variant='default' className='w-fit'>
+            <Button variant='default' className='w-fit' onClick={() => handleDownloadCv()}>
               <Download className='size-4' />
               {t('home.common.downloadCv')}
             </Button>
-            <Button variant={'link'} className='w-fit p-0 text-sm text-muted-foreground hover:text-foreground'>
+
+            <Button
+              variant={'link'}
+              className='w-fit p-0 text-sm text-muted-foreground hover:text-foreground'
+              onClick={() => handleDownloadCv(true)}
+            >
               {t('home.menuDrawer.downloadCvAlt')}
             </Button>
           </section>
